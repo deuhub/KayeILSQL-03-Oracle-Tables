@@ -1,0 +1,5012 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KayeILSQL-03-Oracle Tables</title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="KayeILSQL-03-Oracle Tables">
+    <meta name="keywords" content="Kaye is Learning SQL, #kayeIsLearningSQL, 
+    Create an Oracle Table, #createanOracleTable, Oracle Tables, #oracleTables,
+    Oracle Data Dictionary,#oracleDataDictionary, Synonym, #synonym">
+    <meta name="author" content="Dicle Ertan Ülger">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        h1 {
+            color: rgb(8, 51, 143);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            page-break-before: always;
+        }
+
+        h2 {
+            color: rgb(125, 186, 0);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            page-break-before: always;
+        }
+
+        h3 {
+            color: rgb(0, 184, 224);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        h4 {
+            color: rgb(222, 59, 33);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+        }
+
+
+        h5 {
+            color: rgb(0, 196, 181);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+        }
+
+        h6 {
+            color: rgb(144, 36, 143);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+        }
+
+        p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .note-emoji-300 {
+            font-size: 300%;
+
+        }
+
+
+        .note-bold {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+        }
+
+
+        .note-bold-italic {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .note-bold-navy {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            color: rgb(8, 51, 143);
+        }
+
+        .note-bold-navy-italic {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            color: rgb(8, 51, 143);
+            font-style: italic;
+        }
+
+        .note-bold-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        .note-bold-red {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            font-weight: bold;
+        }
+
+        .note-bold-red-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        .note-bold-red-italic {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .note-10 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            background-color: rgb(247, 181, 18);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+        .note-20 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            font-weight: bold;
+        }
+
+        .note-25 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(222, 59, 33);
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .note-30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(247, 181, 18);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+        .note-40 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(0, 184, 224);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+        .note-50 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 25%);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+        .note-55 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 25%);
+            padding: 30px;
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        .note-60 {
+            background-color: rgb(247, 181, 18);
+            color: rgb(8, 51, 143);
+            font-size: larger;
+            font-weight: bold;
+            padding: 30px;
+        }
+
+        .note-70 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 25%);
+            padding: 20px;
+        }
+
+        .note-75 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 25%);
+            color: rgb(222, 59, 33);
+            padding: 30px;
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        .note-80 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(247, 181, 18);
+            color: rgb(222, 59, 33);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+
+        .note-85 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(247, 181, 18);
+            color: rgb(222, 59, 33);
+            padding: 30px;
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        .note-jci-green {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(125, 186, 0);
+            padding: 30px;
+        }
+
+        .note-jci-green-3 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: larger;
+            font-weight: bold;
+            background-color: rgb(125, 186, 0);
+            padding: 30px;
+        }
+
+
+        .note-90 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(125, 186, 0, 25%);
+            padding: 30px;
+
+        }
+
+        .note-cyan-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 30%);
+            padding: 30px;
+        }
+
+        .note-95 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 10%);
+            padding: 30px;
+        }
+
+        .note-95-a15 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 15%);
+            padding: 30px;
+        }
+
+        .note-95-a20 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 20%);
+            padding: 30px;
+        }
+
+        .note-95-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 30%);
+            padding: 30px;
+        }
+
+        .note-95-a30-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 30%);
+            padding: 30px;
+            font-size: larger;
+        }
+
+        .note-jci-cyan {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(0, 184, 224);
+            padding: 30px;
+        }
+
+        .note-jci-cyan-10 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 10%);
+            padding: 30px;
+        }
+
+        .note-jci-cyan-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(0, 184, 224);
+            padding: 30px;
+            font-size: larger;
+        }
+
+        .note-96 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 184, 224, 10%);
+            padding: 30px;
+            font-size: larger;
+        }
+
+        .note-97 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(125, 186, 0, 10%);
+            padding: 30px;
+
+        }
+
+        .note-97-a15 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(125, 186, 0, 15%);
+            padding: 30px;
+
+        }
+
+        .note-97-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(125, 186, 0, 30%);
+            padding: 30px;
+        }
+
+        .note-98 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(125, 186, 0, 10%);
+            padding: 30px;
+            font-size: larger;
+
+        }
+
+        .note-jcigreen-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(125, 186, 0);
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .note-110 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(199, 15, 175);
+            font-weight: bold;
+        }
+
+        .note-115 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 25%);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+        .note-117 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 10%);
+            padding: 30px;
+        }
+
+        .note-117-a05 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 5%);
+            padding: 30px;
+        }
+
+
+        .note-117-a10 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 10%);
+            padding: 30px;
+        }
+
+        .note-117-a15 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 15%);
+            padding: 30px;
+        }
+
+        .note-117-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 30%);
+            padding: 30px;
+        }
+
+        .note-117-a50 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 50%);
+            padding: 30px;
+        }
+
+        .note-117-a70 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(199, 15, 175, 70%);
+            padding: 30px;
+        }
+
+        .note-117-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(199, 15, 175);
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .note-200 {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .note-210 {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+
+
+
+        .note-300 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(102, 99, 102);
+            color: rgb(245, 245, 245);
+            padding: 30px;
+            font-weight: bold;
+        }
+
+
+        .note-charcoal-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(102, 99, 102);
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .note-charcoal {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(102, 99, 102);
+            padding: 30px;
+        }
+
+        .note-charcoal-a70 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(102, 99, 102, 70%);
+            padding: 30px;
+        }
+
+        .note-charcoal-a50 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(102, 99, 102, 50%);
+            padding: 30px;
+        }
+
+        .note-charcoal-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(102, 99, 102, 30%);
+            padding: 30px;
+        }
+
+        .note-solaryellow-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(247, 181, 18, 30%);
+            padding: 30px;
+        }
+
+        .note-brightgreen-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(196, 219, 13);
+            font-size: larger;
+            font-weight: bold;
+            padding: 30px;
+        }
+
+        .note-brightgreen {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(196, 219, 13);
+            padding: 30px;
+        }
+
+        .note-brightgreen-a70 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(196, 219, 13, 70%);
+            padding: 30px;
+        }
+
+        .note-brightgreen-a50 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(196, 219, 13, 50%);
+            padding: 30px;
+        }
+
+        .note-brightgreen-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(196, 219, 13, 30%);
+            padding: 30px;
+        }
+
+        .note-brightgreen-a10 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(196, 219, 13, 10%);
+            padding: 30px;
+        }
+
+        .note-brightgreen-a05 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(196, 219, 13, 5%);
+            padding: 30px;
+        }
+
+        .note-oceangreen-larger {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181);
+            font-size: larger;
+            font-weight: bold;
+            padding: 30px;
+        }
+
+        .note-oceangreen {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181);
+            padding: 30px;
+        }
+
+        .note-oceangreen-a05 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181, 5%);
+            padding: 30px;
+        }
+
+        .note-oceangreen-a10 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181, 10%);
+            padding: 30px;
+        }
+
+        .note-oceangreen-a30 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181, 30%);
+            padding: 30px;
+        }
+
+        .note-oceangreen-a50 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181, 50%);
+            padding: 30px;
+        }
+
+        .note-oceangreen-a70 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgba(0, 196, 181, 70%);
+            padding: 30px;
+        }
+
+
+        .note-radient-red-larger {
+            background-color: rgb(168, 3, 79);
+            color: rgb(245, 245, 245);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: larger;
+            font-weight: bold;
+            padding: 30px;
+        }
+
+        .note-radient-red {
+            background-color: rgb(168, 3, 79);
+            color: rgb(245, 245, 245);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        .note-radient-red-a70 {
+            background-color: rgba(168, 3, 79, 70%);
+            color: rgb(245, 245, 245);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        .note-radient-red-a50 {
+            background-color: rgba(168, 3, 79, 50%);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        .note-radient-red-a30 {
+            background-color: rgba(168, 3, 79, 30%);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        .note-radient-red-a10 {
+            background-color: rgba(168, 3, 79, 10%);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        .note-radient-red-a05 {
+            background-color: rgba(168, 3, 79, 5%);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 30px;
+        }
+
+        ul {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            line-height: 30px;
+        }
+
+        ol {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            line-height: 30px;
+        }
+
+        dl {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            line-height: 30px;
+        }
+
+        dt {
+            font-size: larger;
+        }
+
+        #t20 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            font-size: small;
+        }
+
+        table,
+        th,
+        td {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+        div {
+            overflow-x: auto;
+
+        }
+
+        figcaption {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        p.lh2 {
+            line-height: 2;
+        }
+
+        ul.lh3 {
+            line-height: 3;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <h1>KayeILSQL-03-Oracle Tables</h1>
+    <p></p>
+    <!--    <img src="deu.png" style="max-width:100% ;" height="auto" alt="just me"> -->
+
+    <p></p>
+    <div class="note-55">
+        <p style="font-size: larger;">Contents</p>
+    </div>
+
+    <div class="note-95">
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#based_on"> Based On </a>
+        </p>
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#h_references"> References </a>
+        </p>
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#create_table">All We Want is to Create a Table</a>
+        </p>
+        <ul>
+            <li> <a href="#ddl_stmt">Data Definition Language(DDL) Statements </a> </li>
+            <li> <a href="#abt_cr_table">About the CREATE TABLE Command </a> </li>
+            <li> <a href="#priv_cr_table">Privileges Required to Create a Table </a> </li>
+            <li> <a href="#cr_user">Create a User/Schema </a> </li>
+
+            <li> <a href="#schema_name_rules"> Schema Object Naming Rules </a> </li>
+            <ul>
+                <li><a href="#s_name_rule_1">Schema Object Naming Rule 1 </a></li>
+                <li><a href="#s_name_rule_2">Schema Object Naming Rule 2 </a></li>
+                <li><a href="#s_name_rule_3">Schema Object Naming Rule 3 </a></li>
+                <li><a href="#s_name_rule_4">Schema Object Naming Rule 4 </a></li>
+                <li><a href="#s_name_rule_5">Schema Object Naming Rule 5 </a></li>
+                <ul>
+                    <li><a href="#s_name_rule_5_namespace">Definition of Namespace </a> </li>
+                    <li><a href="#s_name_rule_5_schema">Schema Objects and Namespaces</a></li>
+
+                    <ul>
+                        <li><a href="#s_name_rule_5_share">Schema Objects that Share One Namespace </a> </li>
+                        <li><a href="#s_name_rule_5_notshare">Schema Objects that Have their Own Namespace </a> </li>
+
+                    </ul>
+                    <li><a href="#s_name_rule_5_nonschema">Non-Schema Objects and Namespaces</a> </li>
+                    <li><a href="#s_name_rule_5_namespace_illust">Illustration of the Namespace Concept &#151; again
+                        </a> </li>
+
+                </ul>
+
+                <li><a href="#s_name_rule_6">Schema Object Naming Rule 6 </a></li>
+                <li><a href="#s_name_rule_7">Schema Object Naming Rule 7 </a></li>
+                <li><a href="#s_name_rule_8">Schema Object Naming Rule 8 </a></li>
+                <li><a href="#s_name_valid">Valid and Invalid Schema Object Names</a></li>
+
+            </ul>
+            <li><a href="#ex_cr_table">Early Example - Creating a Table </a> </li>
+            <ul>
+                <li><a href="#ex_cr_table_sql">The SQL Code of the Example</a> </li>
+                <li><a href="#ex_cr_table_columns">Explanation of the Table Columns</a> </li>
+                <ul>
+                    <li><a href="#ex_table_pk">TABLE_PK</a></li>
+                    <li><a href="#ex_first_name">FIRST_NAME</a></li>
+                    <li><a href="#ex_default_value">About the DEFAULT Value Clause</a> </li>
+                    <li><a href="#ex_last_name">LAST_NAME</a></li>
+                    <li><a href="#ex_logtimestamp">LOGTIMESTAMP</a> </li>
+                </ul>
+
+
+            </ul>
+
+        </ul>
+
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#data_dict">Oracle Data Dictionary</a>
+        </p>
+
+        <ul>
+            <li><a href="#dd_metadata">Metadata</a></li>
+            <ul>
+                <li><a href="#dd_meta_my_objects">Which Objects Do I Have in My Schema?</a> </li>
+                <li><a href="#dd_meta_columns">Which Columns are there in My Table?</a> </li>
+                <li><a href="#dd_meta_comments">Metadata for Comments on Tables and Columns</a></li>
+                <li><a href="#dd_meta_table_comment">Is there a Comment on My Table?</a></li>
+                <li><a href="#dd_meta_column_comment">Are there any Comments on my Columns?</a></li>
+
+            </ul>
+            <li><a href="#dd_components">Data Dictionary Components </a></li>
+            <ul>
+                <li><a href="#dd_base_tables">Base Tables</a></li>
+                <li><a href="#dd_views">Views</a></li>
+                <li><a href="#dd_view_sets">Data Dictionary View Sets</a></li>
+                <li><a href="#dd_dictionary">The Most Wonderful Data Dictionary View "DICTIONARY"</a></li>
+                <li><a href="#dd_cdb_views">CDB (Container Database) Views</a> </li>
+                <li><a href="#dd_cdb_dba">Views with the Prefix DBA_</a></li>
+                <li><a href="#dd_cdb_all">Views with the Prefix ALL_</a></li>
+                <li><a href="#dd_cdb_user">Views with the Prefix USER_</a></li>
+            </ul>
+
+
+            <li><a href="#dd_dual">The DUAL Table</a></li>
+            <li><a href="#dd_works">How the Data Dictionary Works</a></li>
+            <ul>
+                <li><a href="#dd_works_modify">Modify the Data Dictionary</a></li>
+                <li><a href="#dd_works_access">Access the Data Dictionary</a></li>
+            </ul>
+            <li><a href="#dd_dyn_perf_views">Dynamic Performance Tables and Views</a></li>
+            <ul>
+                <li><a href="#dd_dyn_pv_overview">Overview</a></li>
+                <li><a href="#dd_dyn_pv_content_fixed">Contents of the V$FIXED_TABLE</a></li>
+                <li><a href="#dd_dyn_pv_db">V$DATABASE </a></li>
+                <li><a href="#dd_dyn_pv_df">V$DATAFILE </a></li>
+                <li><a href="#dd_dyn_pv_inst">V$INSTANCE </a></li>
+                <li><a href="#dd_dyn_pv_param">V$PARAMETER </a></li>
+                <li><a href="#dd_dyn_pv_use">Uses of </a></li>
+
+            </ul>
+
+        </ul>
+
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#synonyms">Oracle Synonyms</a>
+        </p>
+        <ul>
+            <li> <a href="#synonyms_overview">Overview of Synonyms </a> </li>
+            <li> <a href="#synonyms_examples">Examples on Synonyms</a> </li>
+            <ul>
+                <li><a href="#synonyms_examples_public">Public Synonym Example</a> </li>
+                <li><a href="#synonyms_examples_private">Private Synonym Example</a> </li>
+            </ul>
+            <li> <a href="#synonyms_dd">Synonyms in the Data Dictionary </a> </li>
+        </ul>
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#res_syn">
+                Oracle Database Resolution of Schema Objects</a>
+        </p>
+        <p style="font-size: larger; font-weight: bold;">
+            <a href="#references"> References </a>
+        </p>
+    </div>
+    <p></p>
+
+
+
+
+    <h2 id="based_on">Based On</h2>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <p> This text on SQL is based on the
+        <span class="note-bold-navy">Oracle Database </span> using
+        the
+        <span class="note-bold-navy">EP-European Parliament </span>
+        as Data Model.
+    </p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <div class="note-95">
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+        <p>The
+            <span class="note-bold-navy">European Parliament (EP)</span>
+            is the parliamentary institution of the
+            <span class="note-bold">European Union (EU)</span>.
+        </p>
+        <p>
+            The European Parliament is elected by the citizens of the European Union to represent their interests.</p>
+        <p> Its origins go back to the 1950s and the founding Treaties.
+            Since 1979 its members have been directly elected by the citizens of the EU.</p>
+
+    </div>
+    <p></p>
+    <div class="note-97">
+        <p>Elections are held every five years, and every EU citizen is entitled to vote, and to stand as a candidate,
+            wherever they live in the EU.
+            Parliament thus expresses the democratic will of the
+            European Union's nearly 500 million citizens and
+            it represents their interests in discussions with the other EU institutions. </p>
+
+    </div>
+
+    <p></p>
+    <div class="note-117">
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+
+        <p> The
+            European Parliament model and data used in
+            this SQL text,
+            are based on the elections which were held in June 2004.
+            The European Parliament of 2004 elections had 785 members from all 27 EU countries.</p>
+    </div>
+
+    <p></p>
+    <p></p>
+    <div class="note-95">
+        <p>The sources for the data, which are all freely obtainable from the European Union website,
+            and from several leaflets of the EU institutions,
+            are listed in the
+            <a href="#references"> References</a>
+            section.
+        </p>
+
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+        <p>These sources are used to create
+            <span class="note-bold-navy-italic">the fictitious Business Narrative</span>
+
+            of the
+            <span class="note-bold">"Data Modelling and Normalization"</span>
+            Chapter.
+        </p>
+        <p>We called this
+            <span class="note-bold-navy">Business Narrative</span>;
+            <span class="note-bold">"the Story of the European Union"</span>
+            which explains about the EU and EP,
+            for purposes of Data Modeling.
+        </p>
+
+  <!--     <p>You can access our
+            <span class="note-bold-navy">Business Narrative</span>,
+            <span class="note-bold">the Story of the European Union</span>
+            <a href="kayeILSQL-StoryEuropeanUnion.htm" target="_blank">here</a>.
+        </p>
+-->  
+<p>
+    <span class="note-bold">The Story of the European Union</span> is the last Chapter
+of <b> Kaye is Learning SQL</b>.
+</p>     
+
+    </div>
+
+    <div class="note-117">
+
+        <figure>
+            <figcaption style="font-weight: bold;">
+                Beautiful Lagerstroemia / Crape Myrtle Tree
+            </figcaption>
+            <img src="../images/c3/crapeMyrtle-22.jpg" style="max-width: 100%; height: auto;" alt="Beautiful Crape Myrtle Tree">
+
+        </figure>
+    </div>
+
+    <p></p>
+
+    <h2 id="h_references">References</h2>
+    <p> The knowledge in the following sections are based
+        on my personal work experience, as well as on
+        several Oracle Documentation,
+        which are freely downloadable from Oracle websites.
+    </p>
+    <p>You can find a list of these documents in the
+        <a href="#references"> References</a>.
+    </p>
+    <p>The name of the documents may change in time.</p>
+    <p>
+        <span class="note-bold-navy">
+            You can refer to the Oracle Documentation if you need more detailed
+            information on any of the topics in this text.</span>
+    </p>
+
+
+    <h2 id="create_table">All We Want is to Create a Table </h2>
+    <p></p>
+    <div class="note-95">
+
+        <p>In Oracle,
+            <span class="note-bold">TABLES</span>
+            are objects stored
+            <span class="note-bold">
+                within a User area
+            </span>
+            in an allocated tablespace
+            on the Oracle Server.
+        </p>
+        <p>Each TABLE belonging to a
+            <span class="note-bold">USER</span> must have a
+            <span class="note-bold">Unique Name</span>.
+        </p>
+        <p> Each object, including a TABLE,
+            that is created by a User
+            is stored under that
+            <span class="note-bold">User's SCHEMA</span>.
+        </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>A
+            <span class="note-bold">SCHEMA</span>
+            is a collection of database objects.
+        </p>
+        <p>A
+            <span class="note-bold"></span> SCHEMA
+            is
+            <span class="note-bold">owned</span> by a Database User
+            and has the
+            <span class="note-bold">Same Name</span>
+            as that <span class="note-bold">User</span>.
+        </p>
+        <p>Schema objects are user-created structures that
+            directly refer to the data in the
+            database. </p>
+        <p>The
+            <span class="note-bold-navy">database</span>
+            supports
+            <span class="note-bold-navy">many types of schema objects</span>,
+            the most important
+            of which are
+            <span class="note-bold">tables and indexes</span>.
+        </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-117">
+
+        <p>Schema objects such as
+            <span class="note-bold">tables or indexes</span>
+            <span class="note-bold-navy">hold data</span>.
+        </p>
+
+        <p> Some schema objects can consist of a
+            <span class="note-bold-navy">definition only</span>,
+            such as
+            <span class="note-bold">a view or a synonym</span>.
+        </p>
+        <p> Generally, all of the objects that belong to
+            a single application are placed in the same schema. </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+    <h3 id="ddl_stmt">Data Definition Language(DDL) Statements </h3>
+
+    <div class="note-95-a20">
+        We have to go over the
+        <b>Data Definition Language &#8212; DDL</b>
+        very briefly, before we start creating a table,
+        and before learning about the Data Dictionary.
+    </div>
+
+    <p></p>
+    <div class="note-95">
+
+        <p><b>Data Definition Language (DDL)</b> statements
+            define, structurally change, and drop schema
+            objects. </p>
+        <p> <b>DDL</b> enables you to alter attributes of an object without
+            altering the applications that
+            access the object.</p>
+        <p>For example, you can add a column to a table accessed by an
+            application without rewriting the application.</p>
+        <p>You can also use <b>DDL</b>
+            to alter the structure of objects while
+            database users are performing work in the
+            database.
+        </p>
+        <p></p>
+        <p></p>
+    </div>
+    <p></p>
+    <p>Some <b>DDL</b> statements are seen below. </p>
+
+    <div class="note-97">
+        <p>Create, alter, and drop schema objects and
+            other database structures, including
+            the database itself and database users: </p>
+        <pre style="font-size: 24px; ; font-weight: bold;">
+CREATE 
+ALTER 
+DROP 
+</pre>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <p>Delete all the data in schema objects without removing
+            the structure of these objects: </p>
+
+        <pre style="font-size: 24px; font-weight: bold;">
+TRUNCATE
+</pre>
+
+    </div>
+    <p></p>
+
+
+    <div class="note-97">
+
+        <p>Grant and revoke privileges and roles: </p>
+        <pre style="font-size: 24px; font-weight: bold;">
+GRANT 
+REVOKE
+</pre>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>Turn auditing options on and off: </p>
+        <pre style="font-size: 24px; font-weight: bold;">
+AUDIT
+NOAUDIT
+</pre>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>Add a comment to the Data Dictionary: </p>
+        <pre style="font-size: 24px; font-weight: bold;">
+COMMENT
+</pre>
+    </div>
+    <p></p>
+
+
+    <p></p>
+
+    <div class="note-117">
+
+        <p style="font-style:italic ;">An implicit <b>COMMIT</b> occurs immediately before
+            the database executes a <b>DDL</b> statement,
+            and a <b>COMMIT or ROLLBACK</b> occurs
+            immediately afterward the <b>DDL</b> statement. </p>
+        <p> </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+
+    <span class="note-bold"></span>
+    <h3 id="abt_cr_table">About the CREATE TABLE Command </h3>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+    <div class="note-95">
+
+        <p><span class="note-bold-navy">CREATE TABLE</span>
+            statement is used to create a table.</p>
+        <p>Tables are created with no data unless a subquery is specified. </p>
+        <p>You can add rows to a table with the
+            <span class="note-bold-navy">INSERT</span> statement.
+        </p>
+
+        <p> </p>
+        <p> </p>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+        <p>After creating a table, you can define additional columns and
+            integrity constraints with the
+            <span class="note-bold-navy">ADD clause of the ALTER TABLE</span> statement.
+        </p>
+        <p>You can change the definition of an existing column with
+            the
+            <span class="note-bold-navy">MODIFY clause of the ALTER TABLE</span> statement.
+        </p>
+    </div>
+    <p></p>
+
+    <p></p>
+
+
+    <h3 id="priv_cr_table">
+        Privileges Required to Create a Table </h3>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-95">
+
+        <p>To create a table in your own schema,
+            you must have the
+            <span class="note-bold">CREATE TABLE</span>
+            system privilege
+        </p>
+        <p>To create a table in another user's schema,
+            you must have the
+            <span class="note-bold">CREATE ANY TABLE</span> system privilege.
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+        <p>Also, the owner of the schema to contain
+            the table must have;</p>
+        <ul>
+            <li>either space quota on the tablespace to
+                contain the table, </li>
+            <li>or the UNLIMITED TABLESPACE system privilege.</li>
+        </ul>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <h3 id="cr_user">Create a User/Schema </h3>
+    <p></p>
+    <p style="color:rgb(8,51,143) ;">We will create a USER, and then we will create
+        a table in this User's Schema. </p>
+    <p> </p>
+    <p> </p>
+
+    <div class="note-95">
+
+        <p>We can use the SQL code seen below, to create users. </p>
+
+        <div class="note-95-a20">
+            <p><span class="note-bold-italic">
+                    CREATE USER misket IDENTIFIED BY oracle;</span> </p>
+        </div>
+        <p>The username is
+            <span class="note-bold-navy">misket</span>.
+        </p>
+        <p>The password is
+            <span class="note-bold-navy">oracle</span>.
+        </p>
+
+        <p>
+        <figure>
+            <figcaption style="font-weight: bold;">
+                CREATE a USER by sqldeveloper.
+            </figcaption>
+            <img src="../images/c3/misket-02.jpg" style="max-width: 100%; height: auto;" alt="CREATE USER by sqldeveloper">
+
+        </figure>
+        </p>
+        <p>
+        <figure>
+            <figcaption style="font-weight: bold;">
+                Here is Misket, my beloved cat.
+            </figcaption>
+            <img src="../images/c3/misket-01.jpg" style="max-width: 100%; height: auto;" alt="User Misket - named after my cat.">
+
+        </figure>
+        </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>The default tablespace assigned to this user is
+            <span class="note-bold">"USERS"</span>.
+        </p>
+        <p>It can be changed to some other tablespace name
+            if it does not exist in your database, or if you want to assign a
+            different tablespace to this user.
+        </p>
+
+        <div class="note-97-a15">
+            <p><span class="note-bold-italic">
+                    ALTER USER misket DEFAULT TABLESPACE USERS
+                    QUOTA UNLIMITED ON USERS;
+                </span> </p>
+        </div>
+        <p></p>
+        <p>
+        <figure>
+            <figcaption style="font-weight: bold;">
+                Assign a default tablespace(USERS) to the user by sqldeveloper.
+            </figcaption>
+            <img src="../images/c3/misket-03.jpg" style="max-width: 100%; height: auto;"
+                alt="Assign a default tablespace(USERS) to the user by sqldeveloper">
+
+        </figure>
+        </p>
+
+    </div>
+
+    <p></p>
+    <div class="note-117">
+        <p>The temporary tablespace assigned to this user is
+            <span class="note-bold">"TEMP"</span>.
+        </p>
+        <p>You can change it to some other tablespace name if you want to
+            assign a different temporary tablespace to this user. </p>
+        <p> </p>
+        <div class="note-117-a15">
+            <span class="note-bold-italic">
+                ALTER USER misket TEMPORARY TABLESPACE TEMP;</span>
+        </div>
+        <p> </p>
+        <p>
+        <figure>
+            <figcaption style="font-weight: bold;">
+                Assign a temporary tablespace(TEMP) to the user by sqldeveloper.
+            </figcaption>
+            <img src="../images/c3/misket-04.jpg" style="max-width: 100%; height: auto;"
+                alt="Assign a temporary tablespace(TEMP) to the user by sqldeveloper">
+
+        </figure>
+        </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <div class="note-95">
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+        <p>
+
+        </p>
+        <p> </p>
+        <p>
+        <div class="note-95-a20">
+            <span class="note-bold-italic">
+                GRANT
+                CREATE SESSION <br>
+                , CREATE TABLE<br>
+                , CREATE SEQUENCE<br>
+                , CREATE ANY INDEX<br>
+                , CREATE PUBLIC SYNONYM<br>
+                , CREATE SYNONYM<br>
+                , CREATE VIEW<br>
+                , CREATE TRIGGER<br>
+                , CREATE PROCEDURE<br>
+                , ALTER SESSION<br>
+                TO misket;
+            </span>
+        </div>
+        </p>
+        <p> </p>
+        <p>
+        <figure>
+            <figcaption style="font-weight: bold;">
+                Grant privileges to the user by sqldeveloper.
+            </figcaption>
+            <img src="../images/c3/misket-05.jpg" style="max-width: 100%; height: auto;"
+                alt="Grant privileges to the user by sqldeveloper">
+
+        </figure>
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-97">
+
+        <p>The SQL codes above, create a new user called
+            <span class="note-bold">MISKET</span>
+            and grant this user
+            <span class="note-bold">CREATE SESSION</span> privilege.
+        </p>
+        <p>Using this privilege,
+            <span class="note-bold">user MISKET</span>
+            can log on to
+            <span class="note-bold-navy">the database</span>,
+            to her own schema.
+            This <span class="note-bold-navy">schema</span> which is
+            also called <span class="note-bold-navy">MISKET</span>,
+            has yet no objects in it.
+            It is empty.
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>However, MISKET is also granted many other
+            privileges which will enable her to create
+            all the objects she needs in her schema.
+            Some of these privileges are; </p>
+        <p>
+        <ul>
+            <li>CREATE TABLE</li>
+            <li>CREATE SEQUENCE</li>
+            <li>CREATE ANY INDEX</li>
+            <li>CREATE VIEW</li>
+            <li>CREATE TRIGGER</li>
+            <li>CREATE PROCEDURE</li>
+        </ul>
+
+        </p>
+        <p> MISKET can create the tables and the sequences
+            she needs in her schema after she logs on. </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+        <p>To enable a
+            <span class="note-bold-navy">Unique or Primary Key Constraint</span>,
+            you must have the privileges
+            necessary to create an INDEX on the TABLE.
+        </p>
+        <p>You need these privileges because
+            Oracle Database creates an INDEX on
+            the columns of the Unique or
+            Primary Key in the schema containing the TABLE. </p>
+        <p>Please note that
+            <span class="note-bold">user MISKET</span>
+            has <span class="note-bold">CREATE ANY INDEX</span>
+            privilege.
+        </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+
+    <h3 id="schema_name_rules">
+        Schema Object Naming Rules </h3>
+    <p></p>
+    <p style="color: rgb(8, 51, 143);  ">Before creating a table
+        and other related objects in
+        our new user's schema,
+        we will now have a look at Schema Object Naming Rules. </p>
+
+    <div class="note-95">
+        <span class="note-bold"> </span>
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+
+        <p>Every database object has a name. </p>
+        <p>In a SQL statement, you represent the name of an object with a
+            <span class="note-bold">Quoted Identifier </span>
+            or a <span class="note-bold">Nonquoted Identifier</span>.
+        </p>
+        <p>
+        <ul>
+            <li>A <span class="note-bold">Quoted Identifier</span>
+                begins and ends with
+                <span class="note-bold-navy">double quotation marks ("")</span>.
+                <br> If you name a schema object using a
+                quoted identifier,
+                then you must use the double quotation
+                marks whenever you refer to that object.
+            </li>
+
+            <li>A <span class="note-bold">Nonquoted Identifier</span>
+                is not
+                surrounded by any punctuation.</li>
+        </ul>
+        </p>
+        <p>You can use either quoted or nonquoted
+            identifiers to name any database object. </p>
+        <p>However, database names and database link names
+            are always
+            case insensitive and are stored as uppercase. </p>
+        <p>If you specify such names as quoted identifiers,
+            then the quotation marks are silently ignored. </p>
+        <p> </p>
+
+    </div>
+
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+    <p></p>
+    <p>The following list of rules applies to both quoted
+        and nonquoted identifiers unless otherwise indicated.</p>
+
+    <h4 id="s_name_rule_1">
+        Schema Object Naming Rule 1</h4>
+    <p></p>
+    <div class="note-95">
+
+        <p>Names must be from 1 to 30 bytes long with these exceptions: </p>
+        <p>
+        <ul>
+            <li>Names of databases are limited to 8 bytes.</li>
+            <li>Names of database links can be as long as 128 bytes.</li>
+        </ul>
+        </p>
+
+
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+        <p>If an identifier includes multiple parts separated by periods,
+            then each attribute can be up to 30 bytes long. </p>
+
+        <p>Each period separator, as well as any surrounding
+            double quotation marks, counts as one byte. </p>
+
+        <p>For example, suppose you identify a column like this:
+
+            <br>
+            <span class="note-bold">
+                "schema_name"."table_name"."column_name"
+            </span>
+        </p>
+
+    </div>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-117">
+
+        <p><span class="note-bold">
+                "schema_name"."table_name"."column_name"
+            </span> </p>
+        <p>
+        <ul>
+            <li>the schema name can be up to 30 bytes</li>
+            <li>the table name can be up to 30 bytes</li>
+            <li>the column name can be up to 30 bytes</li>
+            <li>each of the quotation marks is a single-byte character</li>
+            <li>each of the periods is a single-byte character</li>
+        </ul>
+
+        </p>
+        <p>So, the total length of the identifier in this example
+            can be up to 98 bytes. </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <h4 id="s_name_rule_2">
+        Schema Object Naming Rule 2</h4>
+    <p></p>
+    <div class="note-95">
+
+        <p><span class="note-bold">Nonquoted Identifiers</span>
+            <span class="note-bold-navy"> CANNOT BE </span>
+            Oracle Database reserved words.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p><span class="note-bold">Quoted Identifiers</span>
+            can be reserved words,
+            although this is
+            <span class="note-bold-navy">NOT recommended</span>.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Depending on the Oracle product you plan to use to access
+            a database object, names might be further
+            restricted by other product-specific reserved words. </p>
+
+    </div>
+    <p></p>
+
+    <h4 id="s_name_rule_3">
+        Schema Object Naming Rule 3</h4>
+    <p></p>
+    <div class="note-95">
+        <p><span class="note-bold">Nonquoted Identifiers</span>
+            must begin with an
+            <span class="note-bold-navy">alphabetic character</span> from
+            your database character set.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+        <p><span class="note-bold">Quoted Identifiers</span>
+            can begin with any character.
+        </p>
+    </div>
+    <p></p>
+
+
+    <h4 id="s_name_rule_4">
+        Schema Object Naming Rule 4</h4>
+    <p></p>
+
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-95">
+
+        <p> <span class="note-bold">Nonquoted Identifiers</span>
+            can contain only;</p>
+        <p>
+        <ul>
+            <li>alphanumeric characters from your database character set </li>
+            <li>the underscore (_)</li>
+            <li>dollar sign ($)</li>
+            <li>pound sign(#) </li>
+        </ul>
+        </p>
+
+        <p>Database links can also contain periods(.) and "at" signs (@). </p>
+
+        <p></p>
+
+    </div>
+    <p></p>
+
+    <div class="note-95">
+        <span class="note-bold-navy"> </span>
+        <span class="note-bold-italic"> </span>
+        <span class="note-bold-navy-italic"> </span>
+        <p>
+            <span class="note-bold">Oracle</span>
+            <span class="note-bold-navy">strongly discourages</span>
+            you from using $ and # in
+            <span class="note-bold">Nonquoted Identifiers</span>.
+        </p>
+
+    </div>
+    <p></p>
+
+
+    <h4 id="s_name_rule_5">
+        Schema Object Naming Rule 5</h4>
+
+    <div class="note-117">
+
+        <p> </p>
+        <p style="font-size:larger ;">Within a
+            <span class="note-bold-navy">Namespace</span>
+            no two objects can have the same name.
+        </p>
+    </div>
+    <p></p>
+
+    <p></p>
+
+    <ul>
+        <li><a href="#s_name_rule_5_namespace">Definition of Namespace </a> </li>
+        <li><a href="#s_name_rule_5_schema">Schema Objects and Namespaces</a></li>
+
+        <ul>
+            <li><a href="#s_name_rule_5_share">Schema Objects that Share One Namespace </a> </li>
+            <li><a href="#s_name_rule_5_notshare">Schema Objects that Have their Own Namespace </a> </li>
+
+        </ul>
+        <li><a href="#s_name_rule_5_nonschema">Non-Schema Objects and Namespaces</a> </li>
+        <li><a href="#s_name_rule_5_namespace_illust">Illustration of the Namespace Concept &#151; again </a> </li>
+
+    </ul>
+
+
+
+    <h5 id="s_name_rule_5_namespace">Definition of Namespace</h5>
+
+    <div class="note-95">
+        <span class="note-bold-navy"> </span>
+
+        <p> <span class="note-bold-navy">Each Schema</span>
+            in the database has its
+            <span class="note-bold-navy">own Namespaces</span> for
+            the objects it contains.
+        </p>
+
+
+        <p>There are also
+            <span class="note-bold-navy">Non-Schema objects</span>
+            with their own namespaces.
+            These namespaces
+            <span class="note-bold-navy">span the entire database</span>.
+        </p>
+        <p>Within a
+            <span class="note-bold-navy">Namespace</span>
+            no two objects can have the same name.
+        </p>
+
+        <p> </p>
+    </div>
+    <p></p>
+
+    <p>
+
+    </p>
+    <p></p>
+    <div class="note-97">
+
+        <p> </p>
+        <figure>
+            <figcaption style="color:rgb(8,51,143) ;  ">
+                <p>
+                    The
+                    <span class="note-bold-navy">"Namespace"</span>
+                    concept is illustrated in the diagram below &#151;
+                    courtesy of <span class="note-bold-navy">Şeyma Bağdemir Güven</span>
+                    who was my student in Bahçeşehir University, Istanbul, Fall 2006.
+                </p>
+                <p> A picture says a thousand words. </p>
+
+            </figcaption>
+            <figcaption style="font-style: italic;">
+
+                <p>Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+            <img src="../images/c3/namespace-seyma-bagdemir-guven-03.png" style="max-width: 100%; height: auto;"
+                alt="Namespace Concept Illustration">
+            <figcaption>
+
+                <p class="note-bold">
+                    Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+        </figure>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Within a
+            <span class="note-bold-navy">Namespace</span>
+            no two objects can have the same name.
+        </p>
+
+        <p>In reference to the illustration above,
+            this means that,
+            <span class="note-bold-navy">two tables in different schemas</span>
+            are in
+            <span class="note-bold-navy">different namespaces</span>,
+            and <span class="note-bold-navy">can</span> have the same name.
+        </p>
+
+
+        <p>Because
+            <span class="note-bold-navy"> </span>
+            <span class="note-bold-navy"> </span>
+            <span class="note-bold-navy"> </span>
+            <span class="note-bold-navy"> </span>
+            <span class="note-bold">tables and sequences</span>
+            are in the <span class="note-bold-navy">same namespace</span>,
+            a table and a sequence in
+            the same schema <span class="note-bold-navy">cannot</span>
+            have the same name.
+        </p>
+        <p> However,
+            <span class="note-bold">tables and indexes</span> are in
+            <span class="note-bold-navy">different namespaces</span>.
+            Therefore, a table and an index in the same schema
+            <span class="note-bold-navy">can</span> have the
+            same name.
+        </p>
+
+    </div>
+
+
+
+    <p></p>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+    <h5 id="s_name_rule_5_schema">Schema Objects and Namespaces</h5>
+
+    <h6 id="s_name_rule_5_share">Schema Objects that Share One Namespace</h6>
+
+    <div class="note-95">
+        <span class="note-bold-navy"> </span>
+
+        <p>The following schema objects
+            <span class="note-bold-navy">share</span>
+            one namespace:
+        </p>
+        <ul>
+            <li>Tables</li>
+            <li>Views</li>
+            <li>Sequences</li>
+            <li>Private Synonyms</li>
+            <li>Stand-alone Stored Procedures</li>
+            <li>Stand-alone Stored Functions</li>
+            <li>Packages</li>
+            <li>User-defined Types</li>
+            <li>User-defined Operators</li>
+        </ul>
+        <p></p>
+    </div>
+
+    <!-- 
+        <figure>
+            <figcaption class="note-bold">
+                Schema Objects that Share the Same Namespace
+            </figcaption>
+
+            <img src="namesapace-share.jpg" style="max-width: 100% ; height:auto  "
+                alt="Schema Objects that Share the Same Namespace">
+
+        </figure>
+
+        <p></p>
+  
+    <p></p>
+-->
+    <h6 id="s_name_rule_5_notshare">Schema Objects that Have their Own Namespace</h6>
+
+    <div class="note-97">
+        <span class="note-bold-navy"> </span>
+
+        <p>Each of the following schema objects has its
+            <span class="note-bold-navy">own</span> namespace:
+        </p>
+        <ul>
+            <li>Clusters</li>
+            <li>Constraints</li>
+            <li>Database Triggers</li>
+            <li>Dimensions</li>
+            <li>Indexes</li>
+            <li>Materialized Views</li>
+            <li>Private database links</li>
+        </ul>
+    </div>
+    <p></p>
+
+
+    <p></p>
+
+    <h5 id="s_name_rule_5_nonschema">Non-Schema Objects and Namespaces</h5>
+
+
+    <div class="note-95">
+        <span class="note-bold-navy"> </span>
+
+        <p>Each of the following
+            <span class="note-bold-navy">non-schema objects</span>
+            also has its <span class="note-bold-navy">own</span> namespace:
+        </p>
+
+        <ul>
+            <li>Editions</li>
+            <li>Parameter files(PFILES) and
+                Server Parameter files(SPFILES) </li>
+            <li>Profiles</li>
+            <li>Public Database Links</li>
+            <li>Public Synonyms</li>
+            <li>Tablespaces</li>
+            <li>User Roles</li>
+        </ul>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>Because the objects in these namespaces are not contained in schemas,
+            these
+            namespaces span the entire database.
+        </p>
+
+    </div>
+    <p></p>
+
+
+
+
+    <h5 id="s_name_rule_5_namespace_illust">Illustration of the Namespace Concept &#151; again </h5>
+
+    <p> Because this illustration explains the Namespace concept so well,
+        I am just putting it here again
+        <span class="note-emoji-300">&#128516;</span>
+
+    </p>
+    <p>Thank you very much Şeyma Bağdemir Güven<span class="note-emoji-300"> &#128519; </span> </p>
+
+
+    <div class="note-117">
+        <span class="note-bold-navy"> </span>
+        <p> </p>
+        <figure>
+            <figcaption style="color:rgb(8,51,143) ;  ">
+                <p>
+                    The
+                    <span class="note-bold-navy">"Namespace"</span>
+                    concept is illustrated in the diagram below &#151;
+                    courtesy of <span class="note-bold-navy">Şeyma Bağdemir Güven</span>
+                    who was my student in Bahçeşehir University, Istanbul, Fall 2006.
+                </p>
+                <p> A picture says a thousand words. </p>
+
+            </figcaption>
+            <figcaption style="font-style: italic;">
+
+                <p>Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+            <img src="../images/c3/namespace-seyma-bagdemir-guven-03.png" style="max-width: 100%; height: auto;"
+                alt="Namespace Concept Illustration">
+            <figcaption>
+
+                <p class="note-bold">
+                    Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+        </figure>
+        <p> </p>
+    </div>
+    <p></p>
+
+
+
+
+    <h4 id="s_name_rule_6">
+        Schema Object Naming Rule 6</h4>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+    <div class="note-95">
+
+        <p><span class="note-bold">Nonquoted Identifiers</span>
+            are <span class="note-bold">NOT</span> Case Sensitive. </p>
+        <p>Oracle interprets them as
+            <span class="note-bold-navy">UPPERCASE</span>.
+        </p>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> <span class="note-bold">Quoted Identifiers </span>
+            are Case Sensitive. </p>
+        <p>By enclosing names in double quotation marks,
+            you can give the following names to
+            different objects in the same namespace:
+        </p>
+        <ul>
+            <li>"political_group" </li>
+            <li>"Political_Group" </li>
+            <li>"POLITICAL_GROUP" </li>
+        </ul>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Note that Oracle interprets the following names
+            the <span class="note-bold-navy">SAME</span>,
+            so they <span class="note-bold-navy">CANNOT</span>
+            be used for different objects
+            in the same namespace: </p>
+        <ul>
+            <li>political_group </li>
+            <li>POLITICAL_GROUP </li>
+            <li>"POLITICAL_GROUP" </li>
+        </ul>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p><span class="note-bold-navy">Note: </span>
+            You can find more detailed information on
+            <span class="note-bold-navy">"Identifiers and UPPERCASE"</span>
+            in the Oracle Documents listed in the
+            <a href="#references"> References</a>
+            section.
+
+
+        </p>
+
+    </div>
+    <p></p>
+
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+
+    <h4 id="s_name_rule_7">
+        Schema Object Naming Rule 7</h4>
+    <p></p>
+    <div class="note-95">
+
+        <p>Columns in the same table or view
+            <span class="note-bold-navy">cannot</span> have the same name.
+        </p>
+        <p>However, columns in different tables or views
+            <span class="note-bold-navy">can</span> have the same name.
+        </p>
+
+
+    </div>
+    <p></p>
+
+    <h4 id="s_name_rule_8">
+        Schema Object Naming Rule 8</h4>
+    <p></p>
+    <div class="note-95">
+
+        <p>Procedures or functions contained in the same package
+            can have the same name,
+            if their arguments are not of the same number and datatypes. </p>
+        <p>Creating multiple procedures or functions with the same name
+            in the same package with different arguments is called
+            <span class="note-bold-navy">overloading</span>
+            the procedure or function.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <h4 id="s_name_valid">
+        Valid and Invalid Schema Object Names</h4>
+    <p></p>
+    <div class="note-95">
+
+        <p>Here are examples of valid object names: </p>
+        <ul>
+            <li>pg_id</li>
+            <li>capital</li>
+            <li>detailed_description</li>
+            <li>this_seems_like_a_valid_name</li>
+            <li>"COMMITTEES & DELEGATIONS"</li>
+
+        </ul>
+    </div>
+    <p></p>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>Below is an invalid object name which is more than 30 characters: </p>
+
+        <ul>
+            <li>not_sure_if_this_is_a_valid_name</li>
+        </ul>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h3 id="ex_cr_table">
+        Early Example - Creating a Table</h3>
+    <p></p>
+    <div class="note-95">
+        <p>I call this an <b>early</b> example,
+            because although the example is on
+            "how to create a table", it contains many other
+            SQL concepts we have not learned yet.
+        </p>
+        <p>The comments of the SQL codes are pretty much
+            explanatory, although we will learn about these
+            codes later in different chapters.
+        </p>
+        <p>The SQL code below;</p>
+        <ul>
+            <li>Creates a sequence to populate the primary key of the table </li>
+            <li>Creates a table</li>
+            <li>Inserts rows into the table</li>
+            <li>Commits the inserted rows into the database</li>
+            <li>Selects the data of the table</li>
+        </ul>
+    </div>
+    <p></p>
+
+
+    <div class="note-95">
+        <p>We connect to the database as the newly
+            created user <b>Misket</b>,
+            and run the SQL codes below, in
+            <b>the schema Misket</b>.
+        </p>
+        <p>Therefore all the objects that are created
+            by the SQL code below, will be in
+            <b>the schema Misket</b>, and they will be
+            <b>user Misket's</b> objects.
+        </p>
+
+
+    </div>
+    <p></p>
+
+    <h4 id="ex_cr_table_sql">The SQL Code of the Example</h4>
+
+
+    <div class="note-97">
+        <p>SQL code to
+            <b>CREATE</b> the
+            <span class="note-bold">SEQUENCE</span>
+            which will be used for
+            <b>the Primary Key Column</b>.
+        </p>
+        <pre style="font-size:larger;">
+<i> 
+/* Create the sequence which is called:
+        seq_default_example 
+However, initially drop the sequence in case 
+there is already a sequence with the same name. 
+*/</i>
+
+DROP SEQUENCE seq_default_example;
+    
+CREATE SEQUENCE seq_default_example 
+START WITH 1 
+INCREMENT BY 1 
+MAXVALUE 999999 
+NOCACHE NOCYCLE; 
+</pre>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <figure>
+            <figcaption>
+                Create the
+                <span class="note-bold">sequence</span> in SQL Developer using the code above.
+            </figcaption>
+
+            <img src="../images/c3/cr_seq_01.jpg" style="max-width:100% ;" height="auto" alt="Create a sequence in SQL Developer">
+
+        </figure>
+        <p> </p>
+
+
+    </div>
+    <p></p>
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+
+    <div class="note-117">
+
+        <p>SQL code to
+            <b>CREATE</b> a <b>TABLE</b>.
+        </p>
+
+        <pre style="font-size:larger;">
+ <i>
+ /* Create a table which is called:
+    default_example_table
+However, initially drop the table in case 
+there is already a table with the same name.
+ */ </i>
+
+DROP TABLE default_example_table;
+
+CREATE TABLE default_example_table (
+    table_pk      NUMBER(6)
+        CONSTRAINT pk_default_example_table PRIMARY KEY,
+    first_name    VARCHAR2(30) DEFAULT user,
+    last_name     VARCHAR2(30),
+    logtimestamp  TIMESTAMP DEFAULT systimestamp
+); 
+</pre>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <figure>
+            <figcaption>
+                Create the
+                <span class="note-bold">table</span> in SQL Developer using the code above.
+            </figcaption>
+
+            <img src="../images/c3/cr_table_01.jpg" style="max-width:100% ;" height="auto" alt="Create the table in SQL Developer">
+
+
+        </figure>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-95">
+
+        <p>SQL code to <b>INSERT</b> rows into a TABLE. </p>
+        <pre style="font-size:larger;">
+ <i>/* INSERT a row */</i> 
+    INSERT INTO default_example_table (
+        table_pk,
+        last_name
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Ilsql'
+    ); 
+    
+<i>/* INSERT another row */</i> 
+    INSERT INTO default_example_table (
+        table_pk,
+        first_name,
+        last_name
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Kaye',
+        'Ilsql'
+    ); 
+    
+<i>/* INSERT another row */</i> 
+    INSERT INTO default_example_table (
+        table_pk,
+        first_name,
+        last_name,
+        logtimestamp
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Kaye',
+        'Ilsql',
+        systimestamp + 1
+    ); 
+  
+</pre>
+
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+        <figure>
+            <figcaption>
+                Insert rows into the table in SQL Developer using the code above.
+            </figcaption>
+
+            <img src="../images/c3/insert_01.jpg" style="max-width:100% ;" height="auto"
+                alt="Insert rows into the table in SQL Developer">
+
+        </figure>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>SQL code to <b>COMMIT</b> the INSERTED rows. </p>
+        <p>We need to commit any DML(Data Manipulation Language)
+            command to the database. </p>
+        <p> These are also explained in the Transaction Processing chapter. </p>
+
+        <pre style="font-size:larger ;">
+<i> /* Commit inserted rows */</i>
+
+    COMMIT;    
+</pre>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <figure>
+            <figcaption>
+                Commit the Inserted Rows in SQL Developer.
+            </figcaption>
+
+            <img src="../images/c3/commit_01.jpg" style="max-width:100% ;" height="auto"
+                alt="Commit the Inserted Rows in SQL Developer.">
+
+        </figure>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>SQL code to <b>SELECT</b>
+            the data from the table.</p>
+        <pre style="font-size:larger ;">
+<i>/* SELECT the data from the table. */</i>
+
+    SELECT
+        *
+    FROM
+        default_example_table;
+</pre>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p> </p>
+
+        <figure>
+            <figcaption>
+                Select the data in the table in SQL Developer using the code above.
+            </figcaption>
+
+            <img src="../images/c3/select_01.jpg" style="max-width:100% ;" height="auto"
+                alt="Select rows from the table in SQL Developer.">
+
+
+        </figure>
+
+
+    </div>
+    <p></p>
+
+
+
+    <h4 id="ex_cr_table_columns">Explanation of the Table Columns </h4>
+
+    <h5 id="ex_table_pk">TABLE_PK</h5>
+
+    <div class="note-95">
+        <p></p>
+        <p><b>TABLE_PK</b> column is the
+            <b>Primary Key</b> of the table.
+        </p>
+        <p>It is created by the SQL code of the
+            CREATE TABLE command we have used:
+        <pre style="font-size:larger ;">
+        table_pk      NUMBER(6)
+        CONSTRAINT pk_default_example_table PRIMARY KEY,    
+    </pre>
+
+        </p>
+        <p>The clause
+        <pre style="font-size:larger ;">
+"CONSTRAINT pk_default_example_table PRIMARY KEY"</pre>
+        designates this column as the Primary Key of the table. </p>
+        <p>We will learn more about this in the Constraints Chapter.</p>
+        <p>Data type of the TABLE_PK column is NUMBER.</p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <img src="../images/c3/table_pk_01.jpg" style="max-width: 100%;" height="auto" alt="TABLE_PK Column">
+        <p>This column is populated by the
+            <b>SEQUENCE</b> object called
+            <b>seq_default_example</b> we have already created:
+        </p>
+        <p>
+        <pre style="font-size:larger ;">CREATE SEQUENCE seq_default_example START WITH 1 INCREMENT BY 1 ... </pre>
+        </p>
+        <p>This sequence starts with 1 and is incremented by 1.
+            <br> Unless sequence values are lost in between,
+            the values of this column will be 1, 2 and 3.
+        </p>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p> </p>
+        <p>Each value of the sequence is created by the
+            code:
+        <pre style="font-size:larger ;">seq_default_example.NEXTVAL</pre>
+        </p>
+        <p>This value is inserted into the table,
+            using the <b>INSERT</b> command.</p>
+        <p>
+            <img src="../images/c3/table_pk_02.jpg" style="max-width: 100%;" height="auto" alt="TABLE_PK Column - Populate">
+        </p>
+        <p>Because a sequence always generates a
+            <b>unique value</b>,
+            it can be used for the Primary Key of a table.
+        </p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h5 id="ex_first_name">FIRST_NAME</h5>
+    <p></p>
+
+
+    <div class="note-95">
+        <img src="../images/c3/first_name_01.jpg" style="max-width:100% ;" height="auto" , alt="FIRST_NAME Column">
+
+        <p>The column <b>FIRST_NAME</b>
+            is created by the following SQL code,
+            which we have used when creating the table
+            <b>default_example_table</b>:
+        </p>
+
+        <pre style="font-size:larger;">
+first_name    VARCHAR2(30) DEFAULT user,
+    </pre>
+        <p>This code uses the
+            <b>DEFAULT</b> clause.
+        </p>
+        <p>The <b>DEFAULT</b> clause lets you specify a
+            value to be assigned to the column if
+            a
+            <b>subsequent INSERT</b> statement omits that column.
+        </p>
+        <p>In our example, the code <b>"DEFAULT user"</b>
+            makes sure that, if the
+            <b>FIRST_NAME</b> column is omitted in an <b>INSERT</b>
+            statement,
+            then the value of this column will be the
+            <b>USER</b> we connected to the database with &#8212;
+            i.e. the <b>current user</b>.
+        </p>
+
+        <p>In our case, the current user is
+            <b>MISKET</b>.
+        </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+
+        <p>
+            The very first <b>INSERT</b> statement
+            we used, which is seen below,
+            implicitly uses the <b>DEFAULT</b> clause.
+            Because the column <b>FIRST_NAME</b> is
+            omitted in this INSERT statement,
+            the column is assigned the value of the
+            current user &#8212; i.e. <b>MISKET</b>.
+
+
+        </p>
+        <pre style="font-size:larger ;">
+    /* INSERT a row */
+    INSERT INTO default_example_table (
+        table_pk,
+        last_name
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Ilsql'
+    ); 
+</pre>
+        <p>We can see the result of this sql statement in the
+            first row of the table.
+        </p>
+        <img src="../images/c3/first_name_02.jpg" style="max-width:100% ;" height="auto" , alt="FIRST_NAME Column">
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>In the second and the third <b>INSERT</b>
+            statements
+            the value of the column <b>FIRST_NAME</b>
+            is specified as <b>'Kaye'</b> in both cases.
+        </p>
+        <p>This value overrides the <b>DEFAULT</b> value
+            which is the <b>current user</b>.
+        </p>
+        <p>We can see the SQL INSERT Statements and the
+            result below.
+        </p>
+
+        <pre style="font-size:larger ;">
+    /* INSERT another row */
+    INSERT INTO default_example_table (
+        table_pk,
+        first_name,
+        last_name
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Kaye',
+        'Ilsql'
+    ); 
+    
+    /* INSERT another row */
+    INSERT INTO default_example_table (
+        table_pk,
+        first_name,
+        last_name,
+        logtimestamp
+    ) VALUES (
+        seq_default_example.NEXTVAL,
+        'Kaye',
+        'Ilsql',
+        systimestamp + 1
+    );    
+</pre>
+
+        <img src="../images/c3/first_name_03.jpg" style="max-width:100% ;" height="auto" , alt="FIRST_NAME Column">
+
+        <p></p>
+
+        <p> </p>
+    </div>
+    <p> </p>
+
+    <h5 id="ex_default_value">About the DEFAULT Value Clause</h5>
+    <div class="note-95">
+
+
+        <p>As we have seen in the example above,
+            the <b>DEFAULT</b> clause
+            lets you specify a value to be assigned
+            to the column if
+            <b>a subsequent INSERT statement</b>
+            omits a value for the column.
+        </p>
+
+        <p></p>
+
+        <ul>
+            <div class="note-95-a30">
+                <li>The datatype of the expression
+                    used in the <b>DEFAULT</b> clause
+                    <b>MUST</b> match the datatype of the column.
+                    <p> In our case, the datatype of the
+                        FIRST_NAME column is <b>VARCHAR2</b> which is the
+                        same as the datatype of the
+                        expression <b>USER</b>.</p>
+
+                </li>
+            </div>
+            <p></p>
+            <div class="note-95-a30">
+                <li>The column <b>MUST</b> also be long enough
+                    to hold this expression.
+                    Again, in our example the column length is 30,
+                    and the <b>DEFAULT</b> clause expression which
+                    is USER cannot be longer than 30 characters.
+                </li>
+            </div>
+            <p></p>
+            <div class="note-95-a30">
+                <li>The <b>DEFAULT</b> clause expression
+                    <b>CAN</b> include some <b>SQL functions</b>
+                    such as
+                    SYSDATE, SYSTIMESTAMP, USER.
+                    <p> We have already used <b>USER in FIRST_NAME</b>,
+                        and we will be using
+                        <b>SYSTIMESTAMP in the
+                            column LOGTIMESTAMP</b> of our table.
+                    </p>
+                </li>
+            </div>
+            <p></p>
+            <div class="note-95-a30">
+                <li>A <b>DEFAULT</b> clause expression
+                    <b>CANNOT</b> contain references to;
+                    <ul>
+                        <li>Other Columns of the Table</li>
+                        <li>Date Constants that are not fully specified</li>
+                        <li>PL/SQL functions</li>
+                        <p> the pseudocolumns like;</p>
+                        <li>CURRVAL</li>
+                        <li>NEXTVAL</li>
+                        <li>LEVEL</li>
+                        <li>PRIOR</li>
+                        <li>ROWNUM</li>
+                    </ul>
+                </li>
+            </div>
+        </ul>
+
+
+    </div>
+    <p></p>
+
+
+    <h5 id="ex_last_name">LAST_NAME</h5>
+    <p></p>
+    <div class="note-95">
+
+        <p>Values for the column <b>LAST_NAME</b>
+            are explicitly specified in each INSERT statement. </p>
+
+    </div>
+    <p></p>
+
+
+    <h5 id="ex_logtimestamp">LOGTIMESTAMP</h5>
+    <p></p>
+    <div class="note-95">
+
+        <p>The column <b>LOGTIMESTAMP</b> is
+            created by the following SQL code,
+            which we have used when creating the table
+            <b>default_example_table</b>:
+        </p>
+        <pre style="font-size:larger ;">logtimestamp  TIMESTAMP DEFAULT systimestamp</pre>
+        <p>This code uses the <b>DEFAULT</b>
+            clause.</p>
+        <p>Default value for this column is an SQL function
+            <b>SYSTIMESTAMP</b> which gives current date and time.
+        </p>
+        <p>Both
+            <b>the column LOGTIMESTAMP</b> and
+            <b>the default value SYSTIMESTAMP</b>
+            have <span class="note-bold-navy"> datatype TIMESTAMP</span>.
+        </p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <div class="note-97-a15">
+            <p>In the first two INSERT Statements,
+                the column LOGTIMESTAMP is omitted,
+                hence, the default value SYSTIMESTAMP is used. </p>
+        </div>
+
+        <pre style="font-size:larger ;">
+    /* INSERT a row */
+INSERT INTO default_example_table (
+    table_pk,
+    last_name
+) VALUES (
+    seq_default_example.NEXTVAL,
+    'Ilsql'
+); 
+
+/* INSERT another row */
+INSERT INTO default_example_table (
+    table_pk,
+    first_name,
+    last_name
+) VALUES (
+    seq_default_example.NEXTVAL,
+    'Kaye',
+    'Ilsql'
+); 
+</pre>
+
+        <img src="../images/c3/logtimestamp-01.jpg" style="max-width:100% ;" height="auto" , alt="LOGTIMESTAMP Column">
+
+        <p>The value of <b>systimestamp</b>
+            at the moment of the
+            <b>first two INSERT statements</b>
+            was
+            <b>'19-JUL-22 06.07.48'</b> with some fractional seconds.
+        </p>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p><b>The third INSERT statement</b>
+            uses the specified value of
+            <b>systimestamp + 1</b>, which is
+            <b>current date and time plus 1 day</b>.
+            Hence the value will be <b>'20-JUL-22 06.07.48'</b>.
+        </p>
+        <pre style="font-size:larger;">
+/* INSERT another row */
+INSERT INTO default_example_table (
+    table_pk,
+    first_name,
+    last_name,
+    logtimestamp
+) VALUES (
+    seq_default_example.NEXTVAL,
+    'Kaye',
+    'Ilsql',
+    systimestamp + 1
+);             
+        </pre>
+        <p><img src="../images/c3/logtimestamp-02.jpg" style="max-width:100% ;" height="auto" , alt="LOGTIMESTAMP Column">
+        </p>
+
+    </div>
+    <p></p>
+
+    <span class="note-bold"> </span>
+    <span class="note-bold-navy"> </span>
+    <span class="note-bold-italic"> </span>
+    <span class="note-bold-navy-italic"> </span>
+    <div class="note-97">
+
+        <img src="../images/c3/garden-9983.jpg" style="max-width:100% ;" height="auto" alt="Breath of Fresh Air">
+
+
+        <p> </p>
+
+    </div>
+    <p></p>
+
+
+
+    <h2 id="data_dict">Oracle Data Dictionary </h2>
+    <p></p>
+    <div class="note-95">
+
+        <p>One of the most important parts of an
+            Oracle Database is its
+            <b>Data Dictionary</b>.
+        </p>
+        <p>Just like an <b>English Dictionary</b>
+            holds information
+            <span class="note-bold-navy">"about the words"</span>
+            in the <b>English language</b>,
+            an <b>Oracle Data Dictionary </b>
+            holds information
+            <span class="note-bold-navy">"about the data"</span>
+            in an
+            <b>Oracle database</b>.
+        </p>
+
+        <p> </p>
+        <img src="../images/c3/dd_03.jpg" style="max-width:100% ;" height="auto" alt="an English Dictionary">
+
+    </div>
+    <p></p>
+
+    <h3 id="dd_metadata">Metadata</h3>
+    <div class="note-95">
+
+        <p><b>Metadata</b> is <b>"information about data"</b>
+            or <b>"data about data"</b>.
+        </p>
+        <p>We can say that, the
+            <b>Oracle Data Dictionary </b>
+            provides
+            <b>the Metadata of the database</b>.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> <b>Oracle Database</b> stores
+            <span class="note-bold-navy">data dictionary data</span>
+            in tables and views.
+        </p>
+        <p>Therefore, just like any other data in tables/views,
+            users can query the
+            <span class="note-bold-navy">data dictionary data</span>
+            with <b>SQL</b>.
+        </p>
+        <p>For example, users can run <b>SELECT</b>
+            statements to determine;
+        <ul>
+            <li>which tables exist in their schema</li>
+            <li>which columns are in these tables</li>
+            <li>whether indexes are built on these columns</li>
+            <li>.. and so on</li>
+        </ul>
+        </p>
+        <p>Below, we will see some examples. </p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_meta_my_objects">Which Objects Do I Have in My Schema? </h4>
+
+    <div class="note-95">
+
+        <p>One of the Data Dictionary views is
+            <b>USER_OBJECTS</b>.
+        </p>
+        <p>Through this view, we can find out the objects in a user's schema.</p>
+        <p>It has columns indicating the types and the names of the
+            objects.</p>
+    </div>
+    <p></p>
+
+
+    <div class="note-97">
+        <p>Logged on to the database as the <b>user Misket</b>,
+            we can run the following query to find out the objects in
+            <b>Misket's schema:</b>
+        </p>
+        <p> </p>
+        <pre style="font-size:larger ;">
+    SELECT  OBJECT_TYPE
+    ,       OBJECT_NAME
+    FROM    USER_OBJECTS
+    ORDER BY OBJECT_TYPE, OBJECT_NAME;     
+    </pre>
+
+        <img src="../images/c3/user_objects_01.jpg" style="max-width:100% ;" height="auto" alt="Query USER_OBJECTS">
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p> </p>
+
+
+        <ul>
+            <li>The output of the query displays
+                the
+                <b>SEQUENCE (SEQ_DEAFULT_EXAMPLE)</b>
+                and the
+                <b>TABLE (DEFAULT_EXAMPLE_TABLE)</b>
+                which were created in the previous sections.
+            </li>
+            <li>We did NOT create the <b>INDEX (PK_DEFAULT_EXAMPLE_TABLE)</b>,
+                but Oracle did when we specified the primary key. </li>
+            <li>Remember that Oracle creates a unique index with the same name as
+                the primary key or the unique key constraint.</li>
+        </ul>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_meta_columns">Which Columns are there in My Table? </h4>
+
+    <div class="note-95">
+
+        <p><b>USER_TAB_COLUMNS</b> is another Data Dictionary view.</p>
+        <p>Through this view, we can access data about the columns of tables.</p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>We can run the following query to find out the columns,
+            and information on the columns of the table
+            <b>DEFAULT_EXAMPLE_TABLE</b>.
+        </p>
+        <p> </p>
+        <pre style="font-size:larger ;">
+    SELECT  TABLE_NAME
+    ,       COLUMN_NAME
+    ,       DATA_TYPE
+    ,       DATA_LENGTH
+    ,       DATA_PRECISION
+    ,       DATA_SCALE
+    ,       DATA_DEFAULT
+    FROM USER_TAB_COLUMNS
+    WHERE TABLE_NAME='DEFAULT_EXAMPLE_TABLE'
+    ORDER BY COLUMN_NAME;   
+</pre>
+
+        <img src="../images/c3/user_tab_columns.jpg" style="max-width:100% ;" height="auto" alt="Query USER_TAB_COLUMNS">
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>As we can see in the query output above,
+            <b>USER_TAB_COLUMNS</b> have useful information like
+            the data type, data length, default value of a column.
+        </p>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_meta_comments">Metadata for Comments on Tables and Columns</h4>
+
+    <div class="note-95">
+
+        <p>A user can create comments on the tables,
+            and on the columns of the tables in her schema.</p>
+        <p>This information is immediately written into the Data Dictionary
+            and we can retrieve this information from the views
+            <b>USER_TAB_COMMENTS</b> (for tables) and
+            <b>USER_COL_COMMENTS</b> (for columns).
+        </p>
+        <p></p>
+        <p></p>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_meta_table_comment">Is there a Comment on My Table?</h4>
+
+
+
+    <div class="note-95">
+        <p>Create a comment on the table
+            <b>DEFAULT_EXAMPLE_TABLE</b>.
+        </p>
+        <pre style="font-size:larger ;">
+COMMENT ON TABLE DEFAULT_EXAMPLE_TABLE IS 
+'This table is created as an example to column default values';
+</pre>
+        <img src="../images/c3/cr_comment_tab_01.jpg" style="max-width:100% ;" height="auto" alt="">
+        <p> </p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <p>The SQL statement above, created a comment on the table
+            <b>DEFAULT_EXAMPLE_TABLE</b>.
+        </p>
+        <p>This information is immediately written to the Data Dictionary
+            as <b>Metadata</b>.
+        </p>
+        <p>This new piece of metadata, can be queried through the
+            Data Dictionary view <b>USER_TAB_COMMENTS</b> as seen below.
+        </p>
+
+    </div>
+    <p></p>
+    <div class="note-117">
+
+        <p> </p>
+        <p> </p>
+        <pre style="font-size:larger ;">
+    SELECT  TABLE_NAME
+    ,       COMMENTS
+    FROM    USER_TAB_COMMENTS
+    WHERE   TABLE_NAME='DEFAULT_EXAMPLE_TABLE';    
+</pre>
+        <img src="../images/c3/user_tab_comments_01.jpg" style="max-width:100% ;" height="auto" alt="">
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_meta_column_comment">Are there any Comments on my Columns?</h4>
+
+    <div class="note-95">
+
+        <p>Create a comment on the <b>LOGTIMESTAMP</b> column
+            of the table <b>DEFAULT_EXAMPLE_TABLE</b>. </p>
+
+        <pre style="font-size:larger ;">
+COMMENT ON COLUMN DEFAULT_EXAMPLE_TABLE.LOGTIMESTAMP IS
+'This column is defaulted to systimestamp and its datatype is timestamp(6)';
+</pre>
+
+        <img src="../images/c3/cr_comment_col_01.jpg" style="max-width:100% ;" height="auto" alt="">
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <p>The SQL statement above, created a comment on
+            the <b>LOGTIMESTAMP</b> column
+            of the table
+            <b>DEFAULT_EXAMPLE_TABLE</b>.
+        </p>
+        <p>This information is immediately written to the Data Dictionary
+            as <b>Metadata</b>.
+        </p>
+        <p>This new piece of metadata, can be queried through the
+            Data Dictionary view <b>USER_COL_COMMENTS</b> as seen below.
+        </p>
+
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p> </p>
+        <pre style="font-size:larger ;">
+    SELECT *
+    FROM    USER_COL_COMMENTS
+    WHERE   TABLE_NAME='DEFAULT_EXAMPLE_TABLE'; 
+</pre>
+        <img src="../images/c3/user_col_comments_01.jpg" style="max-width:100% ;" height="auto" alt="">
+
+    </div>
+    <p></p>
+
+
+
+
+    <h3 id="dd_components">Data Dictionary Components </h3>
+    <p>The data dictionary consists of <b>Base Tables</b> and <b>Views</b>.</p>
+    <p>These objects are defined as follows:</p>
+    <p></p>
+
+    <h4 id="dd_base_tables">Base Tables</h4>
+    <div class="note-95">
+
+        <p> </p>
+        <ul>
+            <li>Data Dictionary <b>Base Tables</b> store information
+                about the database. </li>
+            <li>Only Oracle Database should write to and read
+                these tables.</li>
+            <li>Users rarely access the base tables directly because they are
+                normalized and most data is stored in a cryptic format.
+            </li>
+        </ul>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_views">Views</h4>
+    <div class="note-95">
+
+        <p> </p>
+        <ul>
+            <li>Data Dictionary <b>Views</b> decode the Base Table data
+                into useful information, such as
+                <b>user</b> or <b>table</b> names,
+                using joins and WHERE clauses to simplify the information.
+            </li>
+            <li>The views contain the names and descriptions of all objects
+                in the data dictionary. </li>
+            <li>Some views are accessible to all
+                database users, whereas others are intended for administrators only.</li>
+            <li>In the previous sections, we have already used some of these views:
+                <ul>
+                    <li>USER_OBJECTS</li>
+                    <li>USER_TAB_COLUMNS</li>
+                    <li>USER_TAB_COMMENTS</li>
+                    <li>USER_COL_COMMENTS</li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+    <p></p>
+
+    <h4 id="dd_view_sets">Data Dictionary View Sets</h4>
+
+    <div class="note-95">
+
+        <p>Typically, data dictionary views are grouped in sets.
+            In many cases, a set consists of
+            three views containing similar information and
+            distinguished from each other by their
+            prefixes, as shown in the following table.
+            By querying the appropriate views, you can
+            access only the information relevant for you.
+        </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <table style="font-size:larger ;">
+            <tr>
+                <th>Prefix</th>
+                <th>User Access</th>
+                <th>Contents</th>
+                <th>Notes</th>
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold;">DBA_</td>
+                <td>Database Administrators</td>
+                <td>All Objects</td>
+                <td>Some DBA_ views have additional
+                    columns containing information
+                    useful to the administrator.</td>
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold;">ALL_</td>
+                <td>All Users</td>
+                <td>Objects to which the Current User has Privileges</td>
+                <td>Includes objects owned by the user.
+                    These views obey the current set of
+                    enabled roles.
+                </td>
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold;">USER_</td>
+                <td>All Users</td>
+                <td>Objects Owned by the Current User</td>
+                <td>Views with the prefix USER_ usually
+                    exclude the column OWNER. This
+                    column is implied in the USER_ views
+                    to be the user issuing the query,
+                    i.e. the Current User.</td>
+            </tr>
+
+        </table>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Not all view sets have three members. </p>
+        <p>For example, the data dictionary contains a
+            <b>DBA_LOCK</b> view but no <b>ALL_LOCK</b> view.
+        </p>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_dictionary">The Most Wonderful Data Dictionary View "DICTIONARY"</h4>
+
+    <div class="note-95">
+
+        <p>The system-supplied <b>DICTIONARY</b> view
+            contains the names and abbreviated descriptions of
+            all the Data Dictionary views. </p>
+        <p>It is one of the most useful data dictionary views,
+            because it can help you with what you need quickly without searcing any
+            documentation or browsing the web.
+        </p>
+        <p>Here are a couple of queries on this view. </p>
+        <p> </p>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p style="font-weight:bold ;">What are the tables in the Data Dictionary
+            which start with 'USER_TAB' and what do these tables contain?
+            <br> The COMMENTS column gives a good explanation of the
+            table's content.
+        </p>
+        <p>The query is run in sqlplus.</p>
+        <pre style="font-size:larger ;">
+    column TABLE_NAME format a30
+    column COMMENTS format a120
+    set linesize 300
+    set pagesize 60
+    SELECT * FROM DICTIONARY WHERE TABLE_NAME LIKE 'USER_TAB%' ORDER BY TABLE_NAME;    
+</pre>
+        <img src="../images/c3/dict_user_tab.jpg" style="max-width:100% ;" height="auto" alt="Prefix USER_ tables">
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p style="font-weight:bold ;">What are the tables in the Data Dictionary
+            which start with 'ALL_TAB' and what do these tables contain? </p>
+        <p> </p>
+
+        <pre style="font-size:larger ;">
+SELECT * FROM DICTIONARY WHERE TABLE_NAME LIKE 'ALL_TAB%' ORDER BY TABLE_NAME;
+</pre>
+        <img src="../images/c3/dict_all_tab.jpg" style="max-width:100% ;" height="auto" alt="Prefix ALL_ tables">
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p style="font-weight:bold ;">
+            Which tables in the Data Dictionary hold data about Constraints?</p>
+
+        <pre style="font-size:larger ;">
+    SELECT * FROM DICTIONARY 
+    WHERE TABLE_NAME LIKE '%CONS%' OR UPPER(COMMENTS) LIKE '%CONSTRA%' 
+    ORDER BY TABLE_NAME;
+</pre>
+
+        <img src="../images/c3/dd_constraints_01.jpg" style="max-width:100% ;" height="auto" alt="DD Constraints Tables">
+        <p></p>
+        <img src="../images/c3/dd_constraints_05.jpg" style="max-width:100% ;" height="auto" alt="DD Constraints Tables">
+        <p></p>
+        <p><b>DBA_</b> views in the Data Dictionary on Constraints: </p>
+        <img src="../images/c3/dd_constraints_03.jpg" style="max-width:100% ;" height="auto" alt="DD Constraints Tables">
+        <p></p>
+        <p><b>ALL_</b> views in the Data Dictionary on Constraints: </p>
+        <img src="../images/c3/dd_constraints_04.jpg" style="max-width:100% ;" height="auto" alt="DD Constraints Tables">
+        <p></p>
+        <p><b>USER_</b> views in the Data Dictionary on Constraints: </p>
+        <img src="../images/c3/dd_constraints_02.jpg" style="max-width:100% ;" height="auto" alt="DD Constraints Tables">
+        <p></p>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_cdb_views">CDB (Container Database) Views</h4>
+
+    <p> <b>Note:</b> If you need more information on
+        <b>CDB</b>s (Multitenant Container Database) and
+        <b>PDB</b>s (Pluggable Database), you can check Oracle Documentation
+        on "Oracle Multitenant Architecture".
+    </p>
+
+    <div class="note-95">
+
+        <p>In a <b>CDB</b>, for every
+            <b>DBA_</b> view, a corresponding <b>CDB_</b> view
+            exists.
+        </p>
+        <p>The owner of a <b>CDB_</b> view is
+            the owner of the corresponding <b>DBA_</b> view. </p>
+        <p>The following picture shows the
+            relationships among the different
+            categories of Dictionary Views in a CDB. </p>
+
+        <figure>
+            <figcaption><b>Data Dictionary View Structure in a CDB</b></figcaption>
+            <img src="../images/c3/dd_struct_01.jpg" style="max-width:100% ;" height="auto" ,
+                alt="Data Dictionary View Structure in a CDB">
+        </figure>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>When the current container is a PDB,
+            a user can view data dictionary information for the
+            current PDB only. </p>
+        <p>When the current container is the
+            CDB root, a common user can query
+            CDB_ views to see metadata for the CDB root and
+            for PDBs <b>for which this user is privileged</b>.
+        </p>
+        <p> </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p> The SYSTEM user, which is common to all
+            containers in the CDB, connects to the CDB root.</p>
+
+        <p></p>
+        <div class="note-117">
+            <pre style="font-size:larger ;">
+    C:\Users\HP>sqlplus
+
+    SQL*Plus: Release 18.0.0.0.0 - Production on Tue Aug 2 13:46:04 2022
+    Version 18.4.0.0.0
+    
+    Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+    
+    Enter user-name: / as sysdba
+    
+    Connected to:
+    Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+    Version 18.4.0.0.0
+    
+    SQL> CONNECT SYSTEM
+    Enter password:
+    Connected.    
+</pre>
+
+            <p>
+                <img src="../images/c3/cdb_users_01.jpg" style="max-width:100% ;" height="auto"
+                    alt="The SYSTEM user connects to the CDB root. ">
+            </p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <p></p>
+
+    <div class="note-117">
+
+        <p>The SYSTEM user queries CDB_USERS to obtain
+            the number of common users in the CDB root. </p>
+        <p>CDB root has the CON_ID=1. </p>
+        <p>The output indicates that 35
+            common users exist in CDB root.
+        </p>
+        <div class="note-117">
+
+            <p> </p>
+            <pre style="font-size: larger;">
+select count(*) from cdb_users where con_id=1;    
+</pre>
+
+            <p></p>
+
+            <p>
+                <img src="../images/c3/cdb_users_02.jpg" style="max-width:100% ;" height="auto" alt="The SYSTEM user queries CDB_USERS
+        to obtain 
+the number of common users in the CDB root. ">
+            </p>
+        </div>
+        <p></p>
+    </div>
+
+
+    <p></p>
+
+    <div class="note-117">
+
+        <p>The SYSTEM user queries CDB_USERS to determine
+            the number of distinct containers with users in the multitenant
+            container database.</p>
+        <p> </p>
+        <p> </p>
+        <div class="note-117">
+            <pre style="font-size:larger ;">
+select count(distinct(con_id)) from cdb_users;
+</pre>
+            <p> </p>
+            <p>
+                <img src="../images/c3/countDistinctConId.jpg" style="max-width:100% ;" height="auto" alt="Determine 
+        the number of distinct containers with users in the CDB. ">
+            </p>
+        </div>
+        <p>We can see from the output that
+            there are <b>two containers with USERS</b>
+            in them.
+        </p>
+        <p>Whic containers are they?</p>
+        <p></p>
+    </div>
+    <p></p>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>The SYSTEM user queries CDB_USERS
+            to find out the CON_ID of the containers
+            with USERS in them.</p>
+        <div class="note-117">
+            <pre style="font-size:larger ;">
+select distinct con_id from cdb_users;    
+</pre>
+            <p> </p>
+            <p>
+                <img src="../images/c3/DistinctConId.jpg" style="max-width:100% ;" height="auto"
+                    alt="CON_ID of the containers with USERS in them ">
+            </p>
+        </div>
+
+        <p>We can see from the output that the containers
+            with CON_ID=1 and CON_ID=3,
+            have USERS in them.
+        </p>
+        <p>We already know that CON_ID = 1 is the CDB.</p>
+        <p>Which one is the other container?</p>
+        <p>We have to query for CON_ID=3.</p>
+    </div>
+    <p></p>
+
+    <p></p>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>The SYSTEM user queries the view <b>v$container</b>
+            to find out the name of the container
+            with CON_ID=3. </p>
+        <div class="note-117">
+
+            <p> </p>
+            <pre style="font-size:larger ;">
+ select name from v$containers where con_id=3;    
+</pre>
+            <p>
+                <img src="../images/c3/containerName.jpg" style="max-width:100% ;" height="auto"
+                    alt="Name of the container with CON_ID=3.">
+            </p>
+            <p> </p>
+            <p> </p>
+
+        </div>
+        <p>We can see from the output of the query, that
+            the other container with USERS in it,
+            is the <b>PDB &#8212;Pluggable Database</b>, named <b>XEPDB1</b>.
+        </p>
+        <p>We can now, query the users in this PDB, XEPDB1.</p>
+    </div>
+    <p></p>
+    <p></p>
+
+    <div class="note-95">
+        <p>The SYSTEM user now connects to the PDB named XEPDB1 using SQL Developer.</p>
+        <p> </p>
+        <div class="note-95">
+            <p>
+                <img src="../images/c3/systemXEPDB1_01.jpg" style="max-width:100% ;" height="auto"
+                    alt="SYSTEM user connects to the PDB named XEPDB1 using SQL Developer.">
+            </p>
+            <p> </p>
+            <p>
+                <img src="../images/c3/systemXEPDB1_02.jpg" style="max-width:100% ;" height="auto"
+                    alt="SYSTEM user connects to the PDB named XEPDB1 using SQL Developer.">
+            </p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <div class="note-95">
+
+        <p>SYSTEM queries CDB_USERS. </p>
+        <p>The output indicates that 39
+            common and local users exist in the current container,
+            which is XEPDB1.
+        </p>
+        <div class="note-95">
+            <pre style="font-size:larger ;">
+    SELECT COUNT(*)
+    FROM CDB_USERS;
+</pre>
+            <img src="../images/c3/pdb_users_01.jpg" style="max-width:100% ;" height="auto"
+                alt="SYSTEM user queries CDB_USERS in the PDB named XEPDB1.">
+            <p> </p>
+
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+    <p></p>
+
+    <div class="note-95">
+
+        <p>SYSTEM queries DBA_USERS.</p>
+        <p>The output is the same as the
+            previous query. </p>
+        <p> Because SYSTEM is not connected to the
+            CDB root, the DBA_USERS view shows the same output as
+            CDB_USERS. </p>
+        <p>Because the DBA_USERS view only shows the users in
+            the current container, it shows 39. </p>
+        <p> </p>
+        <div class="note-95">
+            <pre style="font-size:larger ;">
+SELECT COUNT(*)
+FROM DBA_USERS;
+</pre>
+            <img src="../images/c3/pdb_users_03.jpg" style="max-width:100% ;" height="auto"
+                alt="SYSTEM user queries DBA_USERS in the PDB named XEPDB1.">
+            <p> </p>
+
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_cdb_dba">Views with the Prefix DBA_</h4>
+
+    <div class="note-95">
+
+        <p>Views with the prefix <b>DBA_</b> show all relevant
+            information in the entire database. </p>
+        <p><b>DBA_</b> views are intended only for administrators. </p>
+        <p> The following sample query shows information about
+            all objects in the database:
+        </p>
+        <div class="note-95">
+
+            <p> </p>
+            <pre style="font-size:larger ;">
+SELECT OWNER, OBJECT_TYPE, OBJECT_NAME
+FROM DBA_OBJECTS
+ORDER BY OWNER,  OBJECT_TYPE, OBJECT_NAME;   
+</pre>
+            <img src="../images/c3/dba_objects_01.jpg" style="max-width:100% ;" height="auto" alt="Query DBA_OBJECTS">
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_cdb_all">Views with the Prefix ALL_</h4>
+
+    <div class="note-97">
+        <p>Views with the prefix <b>ALL_</b> refer to
+            the user's overall perspective of the database. </p>
+        <p>These views return information about schema objects to
+            which the user has access through
+            public or explicit grants of privileges and roles,
+            in addition to schema objects that the user owns.
+        </p>
+        <p>For example, the following query returns information about all the
+            objects to which you have access:</p>
+        <div class="note-97">
+
+            <p> </p>
+            <pre style="font-size:larger ;">
+SELECT OWNER, OBJECT_TYPE, OBJECT_NAME
+FROM ALL_OBJECTS
+ORDER BY OWNER,  OBJECT_TYPE, OBJECT_NAME;    
+            </pre>
+            <img src="../images/c3/all_objects_01.jpg" style="max-width:100% ;" height="auto" alt="Query ALL_OBJECTS">
+        </div>
+        <p></p>
+
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_cdb_user">Views with the Prefix USER_</h4>
+
+    <div class="note-117">
+        <p>The views most likely to be of interest to
+            typical database users are those with the
+            prefix <b>USER_</b>. </p>
+        <p>These views:
+        <ul>
+            <li>Refer to the user's private environment in the
+                database, including metadata about
+                schema objects created by the user,
+                grants made by the user, and so on..</li>
+            <li>Display only rows pertinent to the user,
+                returning a <b>subset</b> of the information in the
+                <b>ALL_</b> views.
+            </li>
+            <li>Has columns identical to the other views,
+                except that the column <b>OWNER</b> is implied.</li>
+            <li>Can have abbreviated PUBLIC synonyms for convenience.
+            </li>
+        </ul>
+        </p>
+        <p>For example, the following query
+            returns all the objects contained in your schema: </p>
+        <p></p>
+        <div class="note-117">
+
+            <p> </p>
+            <pre style="font-size:larger ;">
+SELECT OBJECT_TYPE, OBJECT_NAME
+FROM USER_OBJECTS
+ORDER BY OBJECT_TYPE, OBJECT_NAME;    
+            </pre>
+            <img src="../images/c3/user_objects_01.jpg" style="max-width:100% ;" height="auto" alt="Query USER_OBJECTS">
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+
+    <h3 id="dd_dual">The DUAL Table</h3>
+    <p></p>
+    <div class="note-95">
+
+        <p> </p>
+        <p> </p>
+        <ul>
+            <li>The table named <b>DUAL</b> is a small table in the Data Dictionary
+                that is automatically created by the Oracle Database. </li>
+            <li><b>DUAL</b> is in the schema of the user <b>SYS</b>,
+                but is accessible by
+                the name <b>DUAL</b> to all users.
+            </li>
+            <li>All database users have access to <b>DUAL</b>.</li>
+        </ul>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p> </p>
+        <ul>
+            <li>The <b>DUAL</b> table has one column only called <b>DUMMY</b>. </li>
+            <li>The <b>DUAL</b> table has one row only containing the value <b>X</b>.</li>
+        </ul>
+
+
+        <div class="note-97">
+            <figure>
+                <figcaption><b>Structure of the DUAL Table</b></figcaption>
+
+                <img src="../images/c3/dualDescribe.jpg" style="max-width:100% ;" height="auto" alt="Structure of the DUAL Table">
+            </figure>
+            <p>We can see in the figure above that the <b>DUAL</b> table has
+                one column only called <b>DUMMY</b>. </p>
+        </div>
+        <p></p>
+        <div class="note-97">
+            <figure>
+                <figcaption><b>Contents of the DUAL Table</b> </figcaption>
+                <img src="../images/c3/dualRows.jpg" style="max-width:100% ;" height="auto" alt="Contents of the DUAL Table">
+            </figure>
+            <p>We can see in the figure above that the
+                <b>DUAL</b> table has <b>one row only</b> containing the value <b>X</b>.
+            </p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+        <span class="note-bold-navy"> </span>
+        <b></b>
+        <ul>
+            <li>The <b>DUAL</b> table is <span class="note-bold-navy">useful</span>
+                when a value must be returned
+                <b></b><span class="note-bold-navy">only once</span>,
+                for example, the current date and time.
+            </li>
+            <li>Selecting from the <b>DUAL</b> table is useful for
+                <span class="note-bold-navy">computing a constant expression </span>
+                with the <b>SELECT</b> statement.
+            </li>
+            <li>Because <b>DUAL</b> has <span class="note-bold-navy">only one row</span>,
+                the constant is returned
+                <span class="note-bold-navy">only once</span>.
+            </li>
+            <li>Alternatively, you can select a constant, pseudocolumn, or
+                expression from any table,
+                but the value will be returned
+                <span class="note-bold-navy">as many times as the number of rows</span>
+                in the table.
+            </li>
+        </ul>
+
+        Here is an example:
+        <div class="note-117">
+            <b>Selecting from DEFAULT_EXAMPLE_TABLE</b>
+            <p> </p>
+            <p>DEFAULT_EXAMPLE_TABLE is the table we created earlier. </p>
+            <p>We have also inserted three rows into this table. </p>
+            <p>Let's check it out:</p>
+            <pre style="font-size:larger ;">
+SELECT * 
+FROM DEFAULT_EXAMPLE_TABLE;
+</pre>
+            <p>Here are the three rows we have inserted earlier:</p>
+            <img src="../images/c3/dual_02.jpg" style="max-width:100% ;" height="auto" alt="SELECT from DEFAULT_EXAMPLE_TABLE">
+
+            <p></p>
+            <p>We can also find out the number of rows in the table
+                as below:
+            </p>
+            <pre style="font-size:larger ;">
+SELECT COUNT(*) 
+FROM DEFAULT_EXAMPLE_TABLE;
+</pre>
+            <img src="../images/c3/dual_03.jpg" style="max-width:100% ;" height="auto" alt="Number of rows in DEFAULT_EXAMPLE_TABLE">
+            <p></p>
+            <p>If we select an expression from this table,
+                the expression will be returned
+                <span class="note-bold-navy">as many times as the number of rows</span>.
+            </p>
+            <p>Hence, we expect to see 3 rows of the
+                same expression:
+            </p>
+            <pre style="font-size:larger ;">
+SELECT SYSTIMESTAMP 
+FROM DEFAULT_EXAMPLE_TABLE;
+</pre>
+            <img src="../images/c3/dual_01.jpg" style="max-width:100% ;" height="auto"
+                alt="SELECT expression from DEFAULT_EXAMPLE_TABLE">
+            <p>The result is as just we expected.
+                We have three rows of the same expression &#8212; three times.
+            </p>
+        </div>
+        <p></p>
+        <div>
+            <p>However, sometimes we might need the
+                result <b>in one row only</b>.</p>
+            <p>We want the result <b>only once</b>.</p>
+            <p>This is when we need to use the <b>DUAL</b> table. </p>
+            <p>Because <b>DUAL</b> has <span class="note-bold-navy">only one row</span>,
+                the expression will be returned
+                <span class="note-bold-navy">one and only one time</span>.
+            </p>
+        </div>
+        <p></p>
+        <div class="note-117">
+            <b>Selecting from DUAL</b>
+            <p> </p>
+            <pre style="font-size:larger ;">
+SELECT SYSTIMESTAMP 
+FROM DUAL;
+</pre>
+            <img src="../images/c3/dual_04.jpg" style="max-width:100% ;" height="auto" alt="SELECT expression from DUAL">
+            <p>The result is displayed in one row only,
+                exactly as we wanted.
+            </p>
+            <p>This is the use for the <b>DUAL</b> table.</p>
+        </div>
+        <p></p>
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p>Here is another example of using the <b>DUAL</b> table. </p>
+        <p>In this example, we perform an
+            <b>arithmetical operation</b>, and we need to get the result
+            <b>once only &#8212; in just one row</b>.
+        </p>
+        <pre style="font-size:larger ;">
+SELECT ((2 * 3) + 4) / 5
+FROM DUAL; 
+</pre>
+        <img src="../images/c3/dual_05.jpg" style="max-width:100% ;" height="auto" alt="SELECT expression from DUAL">
+        <p>This example resumes the need for and the use of the
+            <b>DUAL</b> table.
+        </p>
+
+    </div>
+    <p></p>
+
+
+    <h3 id="dd_works">How the Data Dictionary Works</h3>
+
+    <div>
+        <p>The <b>Data Dictionary</b> is a
+            <span class="note-bold-navy">CENTRAL PART of Data Management</span>
+            for every <b>Oracle Database</b>.
+        </p>
+        <p> <span class="note-bold-navy">Data in the Base Tables</span> of the
+            <b>Data Dictionary</b> is necessary for
+            <b>Oracle Database</b> to <span class="note-bold-navy">FUNCTION</span>.
+        </p>
+
+        <p>During Database Operations, the <b>Oracle Database</b>
+            performs the following actions: </p>
+    </div>
+    <div class="note-charcoal-a30">
+        <p> </p>
+        <ol>
+            <li><b>Oracle Database</b>
+                <span class="note-bold-navy">MODIFIES</span>
+                the <b>Data Dictionary</b>
+                every time a
+                <b>Data Definition Language (DDL)</b>
+                statement is issued.
+            </li>
+            <li><b>Oracle Database</b>
+                <span class="note-bold-navy">ACCESSES</span> the
+                <b>Data Dictionary</b>
+                <span class="note-bold-navy">TO FIND INFORMATION</span>
+                about;
+                <ul>
+                    <li>Users</li>
+                    <li>Schema Objects</li>
+                    <li>Privileges and Roles each user has been granted</li>
+                    <li>Integrity Constraint Information</li>
+                    <li>Default Values for Columns</li>
+                    <li>...and so on.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <p></p>
+    <p></p>
+    <h4 id="dd_works_modify">Modify the Data Dictionary</h4>
+    <div class="note-97">
+
+        <p>During Database Operations, Oracle Database
+            <span class="note-bold-navy">updates/modifies/writes to</span>
+            the
+            <span class="note-bold-navy">Data Dictionary</span>
+            continuously
+            to reflect changes in database structures, auditing, grants,
+            and data.
+        </p>
+        <p>Oracle Database
+            <span class="note-bold-navy">updates/modifies/writes to</span>
+            the <span class="note-bold-navy">Data Dictionary</span>
+            whenever a <b>Data Definition Language (DDL)</b>
+            statement is issued.
+        </p>
+        <p>For example, if <b>User MISKET</b> creates a table named
+            <b>DEFAULT_EXAMPLE_TABLE</b>, then the
+            Oracle Database
+            <span class="note-bold-navy"> </span>
+            <span class="note-bold-navy">adds new rows</span>
+            to the <span class="note-bold-navy">Data Dictionary</span>
+            that reflect the new table,
+            columns, segment, extents, and the privileges
+            that <b>MISKET</b> has on the table.
+        </p>
+        <p>This new information is visible the next time the
+            <span class="note-bold-navy">Data Dictionary Views</span>
+            are queried.
+        </p>
+        <p> </p>
+    </div>
+    <p></p>
+    <div class="note-97">
+
+        <p>In the previous sections,
+            our <b>Data Definition Language (DDL)</b> actions
+            like <span class="note-bold-navy">creating a sequence,
+                creating a table, creating comments,</span>
+            caused information to be written into the
+            <span class="note-bold-navy">Data Dictionary Base Tables</span>.
+        </p>
+        <p>Therefore, we were able to query the
+            <span class="note-bold-navy">Data Dictionary Views</span>
+            on the <b>Base Tables</b> like;
+        <ul>
+            <li>USER_OBJECTS</li>
+            <li>USER_TAB_COLUMNS</li>
+            <li>USER_TAB_COMMENTS</li>
+            <li>USER_COL_COMMENTS</li>
+        </ul>
+        </p>
+        <p>These are only some of the examples on how the <b>Oracle Database</b>
+            <span class="note-bold-navy">MODIFIED the Data Dictionary</span>
+            during <b>Database Operations</b>.
+        </p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_works_access">Access the Data Dictionary</h4>
+
+
+
+    <div class="note-117">
+        <p>During database operation, Oracle Database reads
+            the Data Dictionary to make sure that
+            schema objects exist and that
+            users have proper access to them. </p>
+    </div>
+
+    <p> </p>
+    <div class="note-117">
+        <img src="../images/c3/dd_works_access_01.jpg" style="max-width:100% ;" height="auto"
+            alt="DD Access to an incorrect table name">
+        <p>In this example,
+            a table named <b>'DEFAULT_EXAMPLE_TAB'</b>
+            is queried, and an error message
+            <b>(ORA-00942)</b> is received.
+        </p>
+        <p>This is because, when the user queries the
+            table <b>'DEFAULT_EXAMPLE_TAB'</b>,
+            the Oracle Database accesses the Data Dictionary and
+            checks out if such a table exists. </p>
+        <p>If the table exists and if the user issuing the query has
+            SELECT privileges on the table, then
+            Oracle Database will
+            return the requested rows from the table. </p>
+        <p>However, in this case, no such table exists. </p>
+        <p>Therefore, the Oracle Database returns an error message.</p>
+
+        <div class="note-117">
+
+
+            <pre style="font-size:larger ;">
+    ORA-00942: table or view does not exist
+    00942. 00000 -  "table or view does not exist"
+    *Cause:    
+    *Action:
+    Error at Line: 2 Column: 6    
+</pre>
+        </div>
+    </div>
+    <p></p>
+
+    <p> </p>
+    <div class="note-117">
+        <img src="../images/c3/dd_works_access_02.jpg" style="max-width:100% ;" height="auto"
+            alt="DD Access to an incorrect column name">
+        <p> </p>
+        <p>In this example, two columns from the
+            table <b>'DEFAULT_EXAMPLE_TAB'</b> are queried,
+            and an error message
+            <b>(ORA-00904)</b> is received.
+        </p>
+        <p>When the user issued the query, the Oracle Database
+            accessed the Data Dictionary and checked out
+            if the table and the columns specified in the query
+            exist.</p>
+        <p>Although the table <b>'DEFAULT_EXAMPLE_TAB'</b>
+            exists, one of the columns is spelled wrong: </p>
+        <p><b>LST_NAME</b> </p>
+        <p>Oracle Database <b>CANNOT FIND</b> the column
+            <b>LST_NAME</b> in the Data Dictionary.
+        </p>
+        <p>Hence, the error. </p>
+
+        <div class="note-117">
+            <p> </p>
+            <pre style="font-size:larger ;">
+    ORA-00904: "LST_NAME": invalid identifier
+    00904. 00000 -  "%s: invalid identifier"
+    *Cause:    
+    *Action:
+    Error at Line: 1 Column: 20    
+</pre>
+        </div>
+        <p></p>
+
+
+    </div>
+    <p></p>
+
+
+    <p></p>
+
+    <div class="note-117">
+
+        <p>"How the Data Dictionary Works" is briefly explained
+            by examples above.</p>
+        <p>However, you can find in-depth information
+            on this topic in Oracle Documentation
+            in the <a href="#references"> References</a> section
+            if you need to.
+        </p>
+
+    </div>
+    <p></p>
+
+
+
+    <h3 id="dd_dyn_perf_views">Dynamic Performance Tables and Views</h3>
+    <p></p>
+    <b></b>
+    <b></b>
+
+    <h4 id="dd_dyn_pv_overview">Overview</h4>
+
+    <div class="note-95">
+        <p>Throughout its operation, Oracle Database maintains
+            a set of virtual tables that record
+            <span class="note-bold-navy"></span>
+            <span class="note-bold-navy">
+                <b>current database activity</b></span>.
+        </p>
+        <p>These tables are called <b>Dynamic Performance Tables</b>. </p>
+        <p>They are called <b>Dynamic Performance Tables</b>,
+            because they are
+            <span class="note-bold-navy"><b>continuously updated</b> while a database
+                is <b>open and in use</b></span>.
+        </p>
+        <p></p>Their contents relate primarily to performance.</p>
+        <p></p>
+
+        <b></b>
+        <b></b>
+
+    </div>
+    <p></p>
+
+    <div class="note-95">
+        <p>Dynamic Performance Tables are <b>NOT</b> true tables</p>
+        <p>Although they appear to be regular database tables,
+            they are not. </p>
+        <b></b>
+        <b></b>
+    </div>
+    <p></p>
+
+    <div class="note-95">
+        <p>They are <b>VIEWS</b>
+            which provide data on internal disk structures
+            and memory structures.</p>
+        <p>You can select from these views,
+            but you can never update or alter them.</p>
+        <b></b>
+        <b></b>
+    </div>
+    <p></p>
+
+    <div class="note-95">
+        <p>However, Database Administrators
+            <b>CAN</b> query and create views on the tables
+            and grant access to those views to other users.
+        </p>
+        <p>The <b>Dynamic Performance Tables</b>
+            are sometimes called <b>FIXED VIEWS</b>
+            because they cannot be
+            altered or removed by the Database Administrator. </p>
+        <b></b>
+        <b></b>
+        <p>One such view is the <b>V$FIXED_TABLE</b>.</p>
+        <p>The <b>V$FIXED_TABLE view</b> contains
+            information about all of the
+            <span class="note-bold-navy">
+                Dynamic Performance Tables and Views
+            </span>.
+
+        </p>
+        <p>Let's have a look at the <b>V$FIXED_TABLE</b> view
+            using the Oracle SQL Developer tool.</p>
+    </div>
+    <p></p>
+
+
+
+
+
+    <div class="note-95">
+
+        <p></p>
+        <p></p>
+        <figure>
+            <figcaption> <b>V$FIXED_TABLE in Oracle SQL Developer</b></figcaption>
+            <img src="../images/c3/vdoll_fixed_table_000.jpg" style="max-width:100% ;" height="auto"
+                alt="Find out the Structure of the V$FIXED_TABLE in Oracle SQL Developer">
+        </figure>
+        <p>To find out the
+            <span class="note-bold-navy"></span>
+            <span class="note-bold-navy">structure of the V$FIXED_TABLE
+            </span> in
+            Oracle SQL Developer,
+            <b>type V$FIXED_TABLE </b>and then
+            use <b>(Shift + fn F4)</b>
+            when the cursor is on the
+            <span class="note-bold-navy">
+                text "V$FIXED_TABLE"
+            </span>.
+        </p>
+        <p>My keys work this way, they may differ from
+            one installation to the other.
+        </p>
+        <p>You can also right click when on the
+            <span class="note-bold-navy">
+                text "V$FIXED_TABLE"
+            </span> and find
+            <b>"Popup Describe"</b> and click on that.
+        </p>
+    </div>
+    <p></p>,
+    <div class="note-95">
+        <p></p>
+        <div class="note-95-a30-larger">
+
+            <p>User <b>SYS</b> owns the <b>Dynamic Performance Tables</b>.</p>
+            <p>Their names all begin with <b>V_$</b>.
+            </p>
+            <p> <b>VIEWS</b> are created on these
+                <b>Dynamic Performance Tables</b>,
+                and then
+                <b>Public Synonyms</b> are created for the
+                <b>Views</b>.
+            </p>
+            <p>The <b>Public Synonym</b> names begin with
+                <b>V$</b>.
+            </p>
+
+        </div>
+        <p></p>
+
+        <p></p>
+        <p>As we can see in the
+            <b>"Popup Describe"</b> window
+            opened for the view <b>V$FIXED_TABLE</b>,
+            the name is displayed as
+            <span class="note-bold-navy">V_$FIXED_TABLE</span>.
+        </p>
+        <p><span class="note-bold-navy">V_$FIXED_TABLE</span>
+            is the name of the
+            <b>Dynamic Performance Table</b>
+            owned by the User <b>SYS</b>.
+        </p>
+        <p>The <b>VIEW V$FIXED_TABLE</b> is created on the
+            <b>Dynamic Performance Table</b>
+            <span class="note-bold-navy">V_$FIXED_TABLE</span>,
+            and then the
+            <b>Public Synonym V$FIXED_TABLE</b> is created for the
+            <b>View</b>.
+        </p>
+        <p>We can see this relationship in the
+            <b>Dependencies Tab of the Popup Describe</b> window.
+        </p>
+        <b></b>
+        <b></b>
+
+        <p></p>
+        <figure>
+            <figcaption> <b>Structure of the V$FIXED_TABLE &#8212; Columns Tab</b></figcaption>
+            <img src="../images/c3/vdoll_fixed_table_001.jpg" style="max-width:100% ;" height="auto" alt="Columns of V$FIXED_TABLE">
+        </figure>
+        <p></p>
+        <p></p>
+        <figure>
+            <figcaption><b>Structure of the V$FIXED_TABLE &#8212; Dependencies Tab</b></figcaption>
+            <img src="../images/c3/vdoll_fixed_table_002.jpg" style="max-width:100% ;" height="auto" alt="Columns of V$FIXED_TABLE">
+
+        </figure>
+    </div>
+    <p></p>
+    <h4 id="dd_dyn_pv_content_fixed">Contents of the V$FIXED_TABLE
+    </h4>
+    <p></p>
+    <div class="note-97">
+        <p>In the previous section,
+            we have seen that the <b>V$FIXED_TABLE</b>
+            is a public synonym for the
+            Dynamic Performance Table <b>V_$FIXED_TABLE</b>
+            owned by the User <b>SYS</b>,
+            and it holds the names of all the
+            <b>Dynamic Performance Tables and Views</b>
+            in an Oracle Database.
+        </p>
+        <p>Now, let's have a look at the contents of the
+            <b>V$FIXED_TABLE</b>.
+        </p>
+    </div>
+    <b></b>
+    <b></b>
+    <p></p>
+    <div class="note-97">
+        <p>What types of objects does <b>V$FIXED_TABLE</b> hold?</p>
+        <div class="note-97-a30">
+
+            <pre style="font-size: larger;">
+    SELECT DISTINCT TYPE
+    FROM V$FIXED_TABLE;    
+</pre>
+            <img src="../images/c3/vdoll_fixed_table_02.jpg" style="max-width:100% ;" height="auto"
+                alt="Types of Objects in V$FIXED_TABLE">
+        </div>
+        <p></p>
+        <p>We can see from the results of the query that
+            there are two types of objects as expected:
+        <ul>
+            <li>TABLE</li>
+            <li>VIEW</li>
+        </ul>
+        </p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <p>Let's display all the rows and all the columns
+            of <b>V$FIXED_TABLE</b>.
+        </p>
+
+        <b></b>
+        <b></b>
+
+        <p></p>
+        <div class="note-97-a30">
+            <pre style="font-size: larger;">
+    SELECT *
+    FROM V$FIXED_TABLE
+    ORDER BY TYPE, NAME;   
+</pre>
+            <img src="../images/c3/vdoll_fixed_table_03.jpg" style="max-width:100% ;" height="auto" alt="Objects in V$FIXED_TABLE">
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+        <p>What are the objects that start with
+            a <b>'V'</b> in <b>V$FIXED_TABLE</b>?</p>
+        <p></p>
+        <b></b>
+        <b></b>
+
+        <p></p>
+        <div class="note-97-a30">
+            <p></p>
+            <pre style="font-size: larger;">
+    SELECT *
+    FROM V$FIXED_TABLE
+    WHERE NAME LIKE 'V%'
+    ORDER BY TYPE, NAME; 
+</pre>
+            <p></p>
+            <img src="../images/c3/vdoll_fixed_table_05.jpg" style="max-width:100% ;" height="auto" alt="Objects in V$FIXED_TABLE">
+            <p></p>
+            <img src="../images/c3/vdoll_fixed_table_06.jpg" style="max-width:100% ;" height="auto" alt="Objects in V$FIXED_TABLE">
+            <p></p>
+            <img src="../images/c3/vdoll_fixed_table_07.jpg" style="max-width:100% ;" height="auto" alt="Objects in V$FIXED_TABLE">
+            <p></p>
+
+
+        </div>
+        <p></p>
+        <p>Let's check the contents of the
+            views in <b>V$FIXED_TABLE</b>
+            that are marked with an arrow.
+        </p>
+    </div>
+    <p></p>
+
+    <div>
+
+    </div>
+    <p></p>
+
+    <h4 id="dd_dyn_pv_db">V$DATABASE
+    </h4>
+    <div class="note-97">
+        <p><b>V$DATABASE</b> view displays information
+            about the database from the control file.</p>
+        <b></b>
+        <b></b>
+        <div class="note-97-a30">
+            <p> </p>
+            <p></p>
+            <p></p>
+            <figure>
+                <figcaption> <b>V$DATABASE Popup Describe &#8212; Dependencies Tab</b></figcaption>
+                <img src="../images/c3/vdoll_database_01.jpg" style="max-width:100% ;" height="auto" alt="V$DATABASE Popup Describe">
+            </figure>
+            <p></p>
+
+            <p></p>
+            <figure>
+                <figcaption> <b>V$DATABASE Contents</b></figcaption>
+
+                <img src="../images/c3/vdoll_database_02.jpg" style="max-width:100% ;" height="auto" alt="V$DATABASE Contents">
+            </figure>
+            <p></p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+
+
+    <h4 id="dd_dyn_pv_df">V$DATAFILE
+    </h4>
+    <div class="note-97">
+        <p><b>V$DATAFILE</b> view contains information about data files. </p>
+        <p>Because the Dynamic Performance Tables are not true tables,
+            the data depends on the state
+            of the database and database instance. </p>
+        <p>For example, you cannot query <b>V$DATAFILE</b>
+            until the database has been mounted.
+
+            However, you can query <b>V$INSTANCE</b>
+            when the database is started but not mounted.
+        </p>
+        <b></b>
+        <b></b>
+        <div class="note-97-a30">
+            <p> </p>
+            <p></p>
+            <figure>
+                <figcaption> <b>V$DATAFILE Popup Describe &#8212; Dependencies Tab</b></figcaption>
+                <img src="../images/c3/vdoll_datafile_01.jpg" style="max-width:100% ;" height="auto" alt="V$DATAFILE Popup Describe">
+            </figure>
+            <p></p>
+
+            <p></p>
+            <figure>
+                <figcaption> <b>V$DATAFILE Contents</b></figcaption>
+
+                <img src="../images/c3/vdoll_datafile_02.jpg" style="max-width:100% ;" height="auto" alt="V$DATAFILE Contents">
+            </figure>
+            <p></p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_dyn_pv_inst">V$INSTANCE
+    </h4>
+    <div class="note-97">
+        <p><b>V$INSTANCE</b> displays the state of the current instance. </p>
+        <b></b>
+        <b></b>
+        <p>Because the Dynamic Performance Tables are not true tables,
+            the data depends on the state
+            of the database and database instance. </p>
+        <p>For example, you can query <b>V$INSTANCE</b>
+            when the database is started but not mounted.
+            However, you cannot query <b>V$DATAFILE</b>
+            until the database has been mounted.
+        </p>
+        <p></p>
+        <div class="note-97-a30">
+            <p> </p>
+            <figure>
+                <figcaption> <b>V$INSTANCE Popup Describe &#8212; Columns Tab</b></figcaption>
+                <img src="../images/c3/vdoll_instance_01.jpg" style="max-width:100% ;" height="auto" alt="V$INSTANCE Popup Describe">
+            </figure>
+            <p></p>
+
+            <p></p>
+            <figure>
+                <figcaption> <b>V$INSTANCE Contents</b></figcaption>
+
+                <img src="../images/c3/vdoll_instance_02.jpg" style="max-width:100% ;" height="auto" alt="V$INSTANCE Contents">
+            </figure>
+            <p></p>
+        </div>
+        <p></p>
+    </div>
+    <p></p>
+
+    <h4 id="dd_dyn_pv_param">V$PARAMETER
+    </h4>
+    <div class="note-97">
+        <p> <b>V$PARAMETER</b> is another useful view. </p>
+        <p>It displays information about the initialization parameters
+            that are currently in effect for the session, their format and
+            whether they are modifiable at a session or system level.</p>
+        <p>A new session inherits parameter values from the instance-wide values
+            displayed by the <b>V$SYSTEM_PARAMETER</b> view.
+        </p>
+
+        <b></b>
+        <b></b>
+        <div class="note-97-a30">
+            <p> </p>
+            <figure>
+                <figcaption> <b>V$PARAMETER Popup Describe &#8212; Columns Tab</b></figcaption>
+                <img src="../images/c3/vdoll_parameter_01.jpg" style="max-width:100% ;" height="auto"
+                    alt="V$PARAMETER Popup Describe">
+            </figure>
+        </div>
+        <p></p>
+        <div class="note-97-a30">
+            <p></p>
+            <pre style="font-size: larger;">
+SELECT  NAME,
+        VALUE,
+        DEFAULT_VALUE,
+        ISDEFAULT,
+        ISSES_MODIFIABLE,
+        ISSYS_MODIFIABLE,
+        ISPDB_MODIFIABLE,
+        ISINSTANCE_MODIFIABLE,
+        DESCRIPTION
+FROM V$PARAMETER;
+    </pre>
+            <figure>
+                <figcaption> <b>V$PARAMETER Contents</b></figcaption>
+
+                <img src="../images/c3/vdoll_parameter_02.jpg" style="max-width:100% ;" height="auto" alt="V$PARAMETER Contents">
+            </figure>
+            <p></p>
+            <p> </p>
+
+
+        </div>
+        <p></p>
+
+    </div>
+    <p></p>
+
+
+
+    <h4 id="dd_dyn_pv_use">Uses of</h4>
+
+    <div class="note-117">
+        <p>We have seen only a few of the
+            <b>Dynamic Performance Views</b>.
+        </p>
+        <p>There are many more of them which are very useful
+            for monitoring and debugging the Oracle Database performance.
+        </p>
+        <p>The Dynamic Performance Views have the
+            following primary uses: </p>
+        <ul>
+            <li>Oracle Enterprise Manager uses the views to obtain information about the
+                database.
+            </li>
+            <li>Administrators can use the views for performance monitoring and debugging.
+            </li>
+        </ul>
+        <p> </p>
+        <b></b>
+        <b></b>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Dynamic Performance Views contain information such as
+            the following:
+        </p>
+        <ul>
+            <li>System and session parameters</li>
+            <li>Memory usage and allocation</li>
+            <li>File states (including RMAN backup files)
+            </li>
+            <li> Progress of jobs and tasks</li>
+            <li>SQL execution</li>
+            <li>Statistics and metrics</li>
+        </ul>
+        <p> </p>
+        <p> </p>
+    </div>
+    <p></p>
+
+    <div class="note-117">
+        <p>This resumes the information on
+            the Dynamic Performance Tables and Views. </p>
+
+    </div>
+    <p></p>
+
+
+
+    <h2 id="synonyms">Oracle Synonyms </h2>
+    <p></p>
+    <h3 id="synonyms_overview">Overview of Synonyms</h3>
+    <div class="note-95">
+
+        <p>A <b>synonym</b> is
+            <b>an alias</b> for a Schema Object.
+        </p>
+        <p>For example, you can create
+            <b>a synonym for</b> a table or view, sequence,
+            PL/SQL program unit, user-defined object type, or
+            another synonym.
+        </p>
+        <p>Because a synonym is simply an alias, it requires no storage other
+            than its definition in the <b>Data Dictionary</b>.
+        </p>
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p><b>Synonyms</b> can simplify SQL statements for database users.</p>
+        <p><b>Synonyms</b> are also
+            useful for hiding the identity and location
+            of an underlying schema object: </p>
+        <ul>
+            <li>If the underlying
+                object must be renamed or moved,
+                then only the synonym must be redefined.</li>
+            <li>Applications based on the synonym continue
+                to work without modification.</li>
+        </ul>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>You can create both
+            <b>Private</b> and <b>Public</b> Synonyms.
+        </p>
+        <p>A <b>Private Synonym</b> is in the Schema of
+            a Specific User who has control over
+            its availability to others.
+        </p>
+        <p>A <b>Public Synonym</b> is owned by the
+            <span class="note-bold-navy">User Group named PUBLIC</span>
+            and is accessible by
+            <b>every Database User</b>.
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+
+    </div>
+    <p></p>
+    <div class="note-95">
+
+        <p> </p>
+        <ul>
+            <li><b>Synonyms themselves are NOT securable.</b> </li>
+            <li>When you grant Object Privileges on a Synonym,
+                you are really granting privileges on the underlying object.
+            </li>
+            <li>The Synonym is acting only as an alias for the object
+                in the GRANT statement.
+            </li>
+        </ul>
+
+    </div>
+    <p></p>
+
+
+
+    <h3 id="synonyms_examples">Examples on Synonyms</h3>
+    <p></p>
+    <h4 id="synonyms_examples_public">Public Synonym Example</h4>
+    <p></p>
+
+    <div class="note-95">
+
+        <p>The Database User <b>KAYE</b>
+            queries the number of rows in table <b>MEPS</b>
+            which is in her own schema. </p>
+        <p> </p>
+        <pre style="font-size:larger ;">
+SELECT COUNT(*)
+FROM MEPS; </pre>
+        <img src="../images/c3/syno_01.jpg" style="max-width:100% ;" height="auto"
+            alt="User KAYE queries the number of rows in her table MEPS.">
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p> </p>
+        <p>The Database User <b>MISKET</b>
+            queries the number of rows in table <b>MEPS</b>
+            which is in <b>KAYE's</b> schema. </p>
+        <p>She gets the error <b>ORA-01031</b>
+            which informs her that she does not have privileges
+            to select from the table <b>MEPS</b>
+            which is in another user's schema. </p>
+        <pre style="font-size:larger ;">
+SELECT COUNT(*)
+FROM KAYE.MEPS; </pre>
+        <img src="../images/c3/syno_02.jpg" style="max-width:100% ;" height="auto"
+            alt="User MISKET queries the number of rows in User KAYE's table MEPS.">
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>The Database Administrator creates a
+            <b>PUBLIC SYNONYM</b> called
+            <b>MEPS</b>.
+        </p>
+        <p> </p>
+        <pre style="font-size:larger ;">
+CREATE PUBLIC SYNONYM MEPS FOR KAYE.MEPS; </pre>
+        <img src="../images/c3/syno_03.jpg" style="max-width:100% ;" height="auto" alt="DBA creates a Public Synonym for KAYE.MEPS.">
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>The Database Administrator grants
+            <b>SELECT</b> privileges to the <b>User Group PUBLIC</b>.
+        </p>
+        <p class="note-bold-red-italic">Every Database User automatically belongs to the PUBLIC User Group.</p>
+        <pre style="font-size:larger ;">
+GRANT SELECT ON MEPS TO PUBLIC; </pre>
+        <img src="../images/c3/syno_04.jpg" style="max-width:100% ;" height="auto"
+            alt="DBA GRANTS SELECT to the Public Synonym MEPS to PUBLIC.">
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>As every Database User automatically belongs to the PUBLIC User Group,
+            <b>MISKET</b> can now query the number of rows
+            in <b>Kaye's</b> table <b>MEPS</b>
+            via the Public Synonym
+            <b>MEPS</b>.
+        </p>
+        <pre style="font-size:larger ;">
+    SELECT COUNT(*) 
+    FROM MEPS; </pre>
+        <img src="../images/c3/syno_05.jpg" style="max-width:100% ;" height="auto" alt="User MISKET selects count of rows in KAYE's table MEPS 
+            through the public synonym MEPS.">
+
+        <p></p>
+        <p><b>MISKET</b> also queries all the rows
+            in <b>Kaye's</b> table <b>MEPS</b>
+            via the Public Synonym
+            <b>MEPS</b>.
+        </p>
+        <pre style="font-size:larger ;">
+    SELECT *
+    FROM MEPS; </pre>
+        <img src="../images/c3/syno_06.jpg" style="max-width:100% ;" height="auto" alt="User MISKET selects all rows in  in KAYE's table MEPS 
+        through the public synonym MEPS.">
+    </div>
+    <p></p>
+
+
+
+    <div class="note-95">
+
+        <p> </p>
+        <p>MISKET can also query
+            <b>Kaye's</b> table <b>MEPS</b>
+            directly as seen below, using the schema name
+            in front of the object name as
+            <b>KAYE.MEPS</b>.
+        </p>
+        <p>This is because, as stated above in the
+            <b>Overview</b> section:
+        </p>
+
+        <p></p>
+        <div class="note-95-a20">
+
+            <p> </p>
+            <ul>
+                <li><b>Synonyms themselves are NOT securable.</b> </li>
+                <li>When you grant Object Privileges on a Synonym,
+                    you are really granting privileges on the underlying object.
+                </li>
+                <li>The Synonym is acting only as an alias for the object
+                    in the GRANT statement.
+                </li>
+            </ul>
+
+        </div>
+        <p></p>
+
+
+        <pre style="font-size:larger ;">
+SELECT *
+FROM KAYE.MEPS; </pre>
+        <img src="../images/c3/syno_07.jpg" style="max-width:100% ;" height="auto" alt="User MISKET selects all rows in  in KAYE's table MEPS 
+not through the public synonym but directly from KAYE.MEPS.">
+
+    </div>
+    <p></p>
+
+    <p></p>
+    <h4 id="synonyms_examples_private">Private Synonym Example</h4>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p>Database User <b>KAYE</b> creates a
+            <b>PRIVATE SYNONYM</b> called
+            <b>EU_PARTIES</b> for the table <b>POLITICAL_GROUPS</b>
+            in her own schema.
+        </p>
+        <p>If you omit the <b>"PUBLIC"</b> clause, then
+            the Synonym will be created as a
+            <b>Private Synonym</b>.
+        </p>
+
+
+        <pre style="font-size:larger ;">
+CREATE SYNONYM EU_PARTIES FOR POLITICAL_GROUPS;
+ </pre>
+        <img src="../images/c3/priv_syno_01.jpg" style="max-width:100% ;" height="auto"
+            alt="KAYE creates the Private Synonym EU_PARTIES for the table POLITICAL_GROUPS.">
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>Database User <b>MISKET</b> queries the new private synonym
+            <b>EU_PARTIES</b>, but receives the Oracle error
+            <b>"ORA-00942: table or view does not exist"</b>.
+        </p>
+        <pre style="font-size:larger ;">
+SELECT * FROM EU_PARTIES;
+             </pre>
+        <img src="../images/c3/priv_syno_02.jpg" style="max-width:100% ;" height="auto"
+            alt="MISKET queries the newly created synonym EU_PARTIES, and receives an error.">
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p>Database User <b>KAYE</b> grants <b>SELECT privilege</b> to
+            the Database User <b>MISKET</b> on her Private Synonym <b>EU_PARTIES</b>.</p>
+        <pre style="font-size:larger ;">
+GRANT SELECT ON EU_PARTIES TO MISKET;
+                         </pre>
+        <img src="../images/c3/priv_syno_03.jpg" style="max-width:100% ;" height="auto"
+            alt="KAYE grants SELECT privilege to MISKET.">
+    </div>
+    <p></p>
+
+    <p></p>
+    <div class="note-95">
+
+        <p>User <b>MISKET</b> queries <b>KAYE'S Private Synonym EU_PARTIES</b> again,
+            and receives the same Oracle error: </p>
+        <p></p>
+        <pre>
+    ORA-00942: table or view does not exist
+    00942. 00000 -  "table or view does not exist"
+    *Cause:    
+    *Action:
+    Error at Line: 2 Column: 6</pre>
+        <pre style="font-size:larger ;">
+    SELECT *
+    FROM EU_PARTIES;</pre>
+        <img src="../images/c3/priv_syno_04.jpg" style="max-width:100% ;" height="auto"
+            alt="MISKET queries EU_PARTIES again, and receives the same error.">
+
+        <p>
+            This is because <b>EU_PARTIES</b> is a
+            <span class="note-bold-navy">Private Synonym which belongs to the User KAYE</span>,
+            it must be prefixed by <b>the Schema Name &#8212; KAYE</b>.
+        </p>
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>The Database User MISKET
+            can now query EU_PARTIES with the Schema Name Prefix,
+            <b>"KAYE.EU_PARTIES"</b>.
+        </p>
+        <pre style="font-size:larger ;">
+    SELECT *
+    FROM KAYE.EU_PARTIES;
+</pre>
+        <img src="../images/c3/priv_syno_05.jpg" style="max-width:100% ;" height="auto"
+            alt="MISKET can now query EU_PARTIES with the Schema Name Prefix.">
+    </div>
+    <p></p>
+
+
+
+    <h3 id="synonyms_dd">Synonyms in the Data Dictionary</h3>
+
+    <p></p>
+    <div class="note-95">
+
+        <p><b>DBA_SYNONYMS</b> describes all synonyms in the database. Its columns are the same as those in
+            <b>ALL_SYNONYMS</b>.
+        </p>
+
+        <pre style="font-size:larger ;">
+SELECT * FROM DBA_SYNONYMS
+WHERE 1=1
+AND TABLE_OWNER='KAYE'; </pre>
+        <img src="../images/c3/dba_syno_01.jpg" style="max-width:100% ;" height="auto" alt="Public synonym MEPS in DBA_SYNONYMS.">
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p><b>ALL_SYNONYMS</b> describes the synonyms accessible to the current user.
+        </p>
+        <pre style="font-size:larger ;">
+SELECT * FROM ALL_SYNONYMS
+WHERE 1=1
+AND TABLE_OWNER='KAYE'; </pre>
+        <img src="../images/c3/all_syno_01.jpg" style="max-width:100% ;" height="auto" alt="Public synonym MEPS in ALL_SYNONYMS.">
+
+    </div>
+    <p></p>
+
+    <div class="note-117">
+
+        <p><b>USER_SYNONYMS</b> describes the synonyms owned by the current user. This view
+            does not display the <b>OWNER</b> column. </p>
+        <pre style="font-size:larger ;">
+    SELECT * FROM USER_SYNONYMS; </pre>
+        <img src="../images/c3/user_syno_01.jpg" style="max-width:100% ;" height="auto" alt="USER_SYNONYMS table in KAYE's Schema.">
+
+    </div>
+    <p></p>
+
+    <p></p>
+
+    <h2 id="res_syn">
+        Oracle Database Resolution of Schema Objects
+    </h2>
+    <p></p>
+    <div class="note-95">
+
+        <p>When you refer to an Object in an SQL statement,
+            Oracle considers the Context of the SQL
+            statement and locates the 
+            Object in the Appropriate Namespace. </p>
+        <p>After locating the Object, 
+            Oracle performs the operation specified by
+            the Statement on the Object.
+        </p>
+        <p>If the Named Object CANNOT be found in the
+            Appropriate Namespace, then Oracle returns an error. </p>
+        <p> </p>
+
+
+    </div>
+    <p></p>
+
+    <div class="note-97">
+
+        <p>The following example illustrates how Oracle resolves
+            references to Objects within SQL statements.</p>
+        <p>Consider this statement that adds a row of data 
+            to a table identified
+            by the name <b>"POLITICAL_GROUPS"</b>: </p>
+
+        <div class="note-charcoal-a30">
+
+            <pre style="font-size:larger ;">
+    /* 'EPP-ED'  */
+    insert into	POLITICAL_GROUPS
+    (pg_id		
+    ,pg_code	
+    ,pg_name	
+    ,address	
+    ,postal_code	
+    ,city		
+    ,tel		
+    ,email
+    ,internet	
+    ,about		
+    ,institute_id	
+    )
+    values
+    (20		
+    ,'EPP-ED'	
+    ,'Group of the European People''s Party(Christian Democrats) and European Democrats'	
+    ,'Group of the European People''s Party (Christian Democrats) and 
+    European Democrats in the European Parliament,
+    60, Rue Wiertz /Wiertzstraat
+    B-1047 Brussels
+    '	
+    ,'B-1047'	
+    ,'Brussels'		
+    ,'+32 2 2842234'
+    ,'epp-ed@europarl.europa.eu'		
+    ,'http://www.epp-ed.eu/home/'	
+    ,'The Group of the European People''s Party (Christian Democrats) and European Democrats in the European Parliament (EPP-ED Group) is a major political force in the European Union; it is the direct heir of the tradition established in the 1950s by Robert Schuman, Konrad Adenauer and Alcide de Gasperi.
+    The EPP-ED Group has worked consistently and successfully to consolidate the European Union on the bases of the primacy of law and respect for fundamental rights, on the application of the principle of subsidiarity and an efficient sharing out of power, and on independent democratic institutions, in order to ensure that future progress serves the common interest of all Europeans.
+    As members of the EPP-ED Group, we believe in a Europe of values, united, open, more humane and embracing diversity. We want a Europe which creates opportunity and wealth within a single market, competitive at world level, and which at the same time promotes the wellbeing of everybody, not only in Europe, but also in the rest of the world, in accordance with the principle of sustainable development enshrined in the EU Treaty as one of the European Community''s aims.We wish to see the Union develop a consistent and effective common foreign and security policy and to carry out the institutional reforms necessary to make enlargement a success.The EPP-ED Group is the political centre in Europe. Moderation and dialogue are the tools our Group deploys. Using them, all our work as members of the EPP-ED Group reflects our unstinting commitment to building a Europe of opportunity, a better Europe for all.'		
+    ,300	
+    )
+    ;
+</pre>
+        </div>
+        <p>Based on the Context of the SQL statement,
+            Oracle determines that <b>"POLITICAL_GROUPS"</b> can be:</p>
+
+        <ul>
+            <li>A <b>TABLE</b> in your Own Schema</li>
+            <li>A <b>VIEW</b> in your Own Schema</li>
+            <li>A <b>PRIVATE SYNONYM</b> for a Table or View</li>
+            <li>A <b>PUBLIC SYNONYM</b> for a Table or View</li>
+
+        </ul>
+        <p> </p>
+        <p>Oracle always attempts to resolve an Object Reference within
+            the
+            <b>Namespaces in your Own Schema </b> before considering
+            <b>Namespaces Outside Your Schema</b>.
+        </p>
+
+        <p>At this point in the text, let's revisit the
+            <b>Concept of Namespaces</b>, by displaying the
+            Namespace illustration below &#8212; yet again.
+        </p>
+    </div>
+
+    <p> </p>
+    <div class="note-117">
+        <span class="note-bold-navy"> </span>
+        <p> </p>
+        <figure>
+            <figcaption style="color:rgb(8,51,143) ;  ">
+                <p>
+                    The
+                    <span class="note-bold-navy">"Namespace"</span>
+                    concept is illustrated in the diagram below &#151;
+                    courtesy of <span class="note-bold-navy">Şeyma Bağdemir Güven</span>
+                    who was my student in Bahçeşehir University, Istanbul, Fall 2006.
+                </p>
+                <p> A picture says a thousand words. </p>
+
+            </figcaption>
+            <figcaption style="font-style: italic;">
+
+                <p>Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+            <img src="../images/c3/namespace-seyma-bagdemir-guven-03.png" style="max-width: 100%; height: auto;"
+                alt="Namespace Concept Illustration">
+            <figcaption>
+
+                <p class="note-bold">
+                    Every circle/ellipse in the picture is a namespace. </p>
+                <p>There are more namespaces than seen in this picture, in a database.
+                </p>
+
+            </figcaption>
+        </figure>
+        <p> </p>
+    </div>
+    <p></p>
+    <div class="note-97">
+
+        <p>Oracle attempts to resolve the name <b>"POLITICAL_GROUPS"</b>
+            as follows: </p>
+        <p class="note-bold-red-larger">Step 1</p>
+
+        <div class="note-charcoal-a30">
+            <p>First, Oracle attempts to locate the object in the
+             <b>Namespace in Your Own Schema</b> 
+                containing Tables, Views, and Private Synonyms.</p>
+            <p>If the object is a Private Synonym,
+                then Oracle locates the Object for which 
+                the Synonym stands. </p>
+            <p>This Object could be
+                in your own schema, in another schema, 
+                or on another database.</p>
+            <p> The Object could
+                also be Another Synonym, in which case Oracle locates
+                the Object for which this
+                Synonym stands. </p>
+        </div>
+        <p> </p>
+
+        <p class="note-bold-red-larger">Step 2</p>
+        <div class="note-charcoal-a30">
+            <p>If the Object is in the Namespace,
+                then Oracle attempts to perform the statement
+                on the object. </p>
+            <p>In this example, Oracle attempts to add the row of data to
+                <b>POLITICAL_GROUPS</b>.
+            </p>
+            <p>If the object is NOT of the correct type for the statement,
+                then Oracle returns an error. </p>
+            <p>In this example, <b>POLITICAL_GROUPS</b>
+                must be a "Table", "View", or a "Private
+                Synonym resolving to a Table or View". </p>
+            <p>If <b>POLITICAL_GROUPS</b>
+                is a Sequence, then Oracle returns an error. </p>
+        </div>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p class="note-bold-red-larger">Step 3</p>
+        <div class="note-charcoal-a30">
+            <p> If the Object is NOT in any Namespace searched in thus far,
+                then Oracle searches the 
+              <b>Namespace containing Public Synonyms</b>. </p>
+            <p>If the Object is in that namespace,
+                then Oracle attempts to perform the statement on it. </p>
+            <p> If the Object is NOT of the
+                correct type for the statement, then Oracle returns an error. </p>
+            <p>In this example, if <b>POLITICAL_GROUPS</b>
+                is a Public Synonym for a Sequence, then Oracle returns an error.
+            </p>
+            <p> </p>
+            <p> </p>
+        </div>
+        <p> </p>
+        </div>
+    <p></p>
+
+
+    <div class="note-97">
+
+        <img src="../images/c3/garden-9984.jpg" style="max-width:100% ;" height="auto" alt="Breath of Fresh Air">
+
+
+        <p> </p>
+
+    </div>
+    <p></p>
+
+
+
+
+    <div class="note-97">
+
+        <img src="../images/c3/rose garden - 01.jpg" style="max-width:100% ;" height="auto" alt="Breath of Fresh Air">
+
+
+        <p> </p>
+
+    </div>
+    <p></p>
+
+
+    <h2 id="references">References</h2>
+
+
+
+    <div class="note-charcoal-a30">
+
+        <ul>
+
+            <li>Oracle&#174; Database, Database Concepts, 21c, F31733-04, August 2021</li>
+            <li>Oracle&#174; Database, 2 Day Developer's Guide, 21c, F32609-01, December 2020 </li>
+            <li>Oracle&#174; Database, SQL Language Reference, 21c F31301-07, March 2022</li>
+            <li>Oracle&#174; Database, Database Reference, 21c, F31274-15, August 2022</li>
+            <li>C.J. Date, An Introduction to Database Systems 7th Edition, Addison-Wesley ISBN 0-201-38590-2</li>
+            <li>Richard Barker, Case*Method, Entity Relationship Modelling, Addison-Wesley ISBN 0-201-41696-4</li>
+
+        </ul>
+    </div>
+
+    <div class="note-117">
+
+
+
+        <ul>
+            <li>ISBN 92-79-03653-X , How the European Union works: Booklet by EU Publications Office
+            </li>
+            <li>ISBN 978-92-824-2203-8, Information handbook of the Council of the European Union, DG Press, General
+                Secretariat of the Council</li>
+
+            <li>European Union
+                <p><a href="https://europa.eu/european-union/index_en" target="_blank">
+                        https://europa.eu/european-union/index_en</a> </p>
+
+            </li>
+
+            <li>European Council
+                <p><a href="https://www.consilium.europa.eu/en/" target="_blank">
+                        https://www.consilium.europa.eu/en/</a>
+                </p>
+            </li>
+            <li>European Parliament
+                <p> <a href="https://www.europarl.europa.eu/portal/en" target="_blank">
+                        https://www.europarl.europa.eu/portal/en</a> </p>
+
+            </li>
+            <li>The Official Directory of the European Union (Who is Who)
+                <p><a href="  https://op.europa.eu/en/web/who-is-who" target="_blank">
+                        https://op.europa.eu/en/web/who-is-who </a> </p>
+            </li>
+        </ul>
+    </div>
+    <p></p>
+    <img src="../images/c3/deu.png" style="max-width:100% ;" height="auto" alt="just me">
+    <p></p>
+</body>
+
+</html>
